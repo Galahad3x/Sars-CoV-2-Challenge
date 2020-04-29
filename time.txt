@@ -1,0 +1,8 @@
+Get global data:
+0.004239306999807013
+Separate in countries 1:
+0.003519722999953956
+Separate in countries 2:
+0.0003531990005285479
+Medians:
+2.38090005950653e-05
