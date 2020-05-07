@@ -7,4 +7,6 @@ Pràctica d'Algorítmica i Complexitat
 - Hem calculat la mediana accedint a la posició directament, ja que les dades ja estaven ordenades.  
 - Hem accedit a la mostra i l'hem descarregat en format FASTA.
 #### Alineament de seqüències
-  
+##### Mètode Needleman-Wunsch
+- Aplicant programació dinàmica, hem creat una taula que ens permet resseguir el camí per alinear les seqüències (traceback matrix).
+- També hem creat una taula que ens permet puntuar la similitud entre les dues seqüències
