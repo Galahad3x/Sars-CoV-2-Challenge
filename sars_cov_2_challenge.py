@@ -145,10 +145,10 @@ for data in medians:
     get_files(data)
     total_timeit += timeit.timeit("get_files(data)","from __main__ import get_files,data",number=1)
 
-f.write("Total file scraping: ")
-f.write(str(total_timeit))
-f.write("Average file scraping: ")
-f.write(str(total_timeit/len(medians)))
+f.write("Total file scraping: \n")
+f.write(str(total_timeit) + "\n")
+f.write("Average file scraping: \n")
+f.write(str(total_timeit/len(medians)) + "\n")
 
 print("DONE")
 
@@ -156,32 +156,38 @@ f.close()
 
 #Bloc 6
 
-def sequence_alignment():
-  sequence_1 = "ACCGAAC"
-  sequence_2 = "ACCTAAC"
-  match = -1
-  non_match = 4
-  gap = 5
-  result = 0
-  matriu = []
+seq_1 = "ACCGAAC"
+seq_2 = "ACCTAAC"
 
-  #Creació matriu
-  for _ in range(len(sequence_1) + 2):
-    fila = []
-    for _ in range(len(sequence_2) + 2):
-      fila.append(0)
-    matriu.append(fila)
+#Brute force
+def sequence_alignment_brute_force(sequence_1,sequence_2):
+    gap = 6
+    matriu = []
 
-  #Inicialització dels eixos
-  matriu[0][1] = "-"
-  matriu[1][0] = "-"
+    order = { 'A': 0, 'G': 1, 'C': 2, 'T': 3}
+    mismatch = [[0,2,3,4],[2,0,5,1],[3,5,0,1],[4,3,1,0]]
 
-  for i in range(len(sequence_1)):
-    matriu[i + 2][0] = sequence_1[i]
-  for i in range(len(sequence_2)):
-    matriu[0][i + 2] = sequence_2[i]
+    #Creació matriu
+    for _ in range(len(sequence_1) + 1):
+        fila = []
+        for _ in range(len(sequence_2) + 1):
+            fila.append(0)
+        matriu.append(fila)
 
-  #Omplim la matriu
-  for i = 1 in range(len(sequence_1)):
-    for j = 0 in range(len(sequence_2)):
-      if (sequence_1[i] == sequence_2[j]):
+    #Sequence 1 vertical, sequence 2 horitzontal
+
+    matriu[0][0] = 0
+
+    #Omplim la matriu
+    for i in range(len(sequence_1)):
+        matriu[i+1][0] = matriu[i][0] + gap
+    for i in range(len(sequence_2)):
+        matriu[0][i+1] = matriu[0][i] + gap
+
+    for i in range(len(sequence_1)):
+        for j in range(len(sequence_2)):
+            matriu[i+1][j+1] = min(min(matriu[i+1][j] + gap,matriu[i][j+1] + gap),matriu[i][j] + mismatch[order[sequence_1[i]]][order[sequence_2[j]]])
+
+    print("\n".join([str(lin) for lin in matriu]))
+
+sequence_alignment_brute_force(seq_1,seq_2)
