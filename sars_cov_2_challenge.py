@@ -156,11 +156,17 @@ f.close()
 
 #Bloc 6
 
-seq_1 = "ACCGAAC"
-seq_2 = "ACCTAAC"
+seq_1 = "AACGAACA"
+seq_2 = "ACCTAACT"
 
 #Brute force
-def sequence_alignment_brute_force(sequence_1,sequence_2):
+def sequence_alignment_brute(sequence_1,sequence_2):
+    #Trobar tots els camins i calcular el seu cost 
+    # INEFICIENT !!!
+    pass
+
+#Dynamic programming
+def sequence_alignment_dynamic(sequence_1,sequence_2):
     gap = 6
     matriu = []
 
@@ -188,6 +194,8 @@ def sequence_alignment_brute_force(sequence_1,sequence_2):
         for j in range(len(sequence_2)):
             matriu[i+1][j+1] = min(min(matriu[i+1][j] + gap,matriu[i][j+1] + gap),matriu[i][j] + mismatch[order[sequence_1[i]]][order[sequence_2[j]]])
 
+    #Falta trobar camí més barat ara
+
     print("\n".join([str(lin) for lin in matriu]))
 
-sequence_alignment_brute_force(seq_1,seq_2)
+sequence_alignment_dynamic(seq_1,seq_2)
