@@ -156,46 +156,123 @@ f.close()
 
 #Bloc 6
 
-seq_1 = "AACGAACA"
-seq_2 = "ACCTAACT"
-
 #Brute force
 def sequence_alignment_brute(sequence_1,sequence_2):
     #Trobar tots els camins i calcular el seu cost 
     # INEFICIENT !!!
     pass
 
-#Dynamic programming
+#Retornarà tupla de strings del estil "NNNGNGNN" on G es Gap i N Nogap
+def find_path(mat,punt,endpoint,results):
+    if punt == endpoint:
+        return results
+    else:
+        try:
+            min_next = min(min(mat[punt[0]+1][punt[1]],mat[punt[0]][punt[1]+1]),mat[punt[0]+1][punt[1]+1])
+        except IndexError:
+            try:
+                min_next = mat[punt[0]+1][punt[1]]
+            except IndexError:
+                return find_path(mat,(punt[0],punt[1]+1),endpoint,(results[0]+"G",results[1]+"N"))
+        if min_next == mat[punt[0]+1][punt[1]+1]:
+            #Gap horitzontal
+            return find_path(mat,(punt[0]+1,punt[1]+1),endpoint,(results[0]+"N",results[1]+"N")) 
+        elif min_next == mat[punt[0]][punt[1]+1]:
+            #Gap vertical
+            return find_path(mat,(punt[0],punt[1]+1),endpoint,(results[0]+"G",results[1]+"N"))
+        else:
+            return find_path(mat,(punt[0]+1,punt[1]),endpoint,(results[0]+"N",results[1]+"G"))
+            
+
+#Dynamic programming, Needleman-Wunsch method
 def sequence_alignment_dynamic(sequence_1,sequence_2):
-    gap = 6
+    gap = 4
     matriu = []
 
     order = { 'A': 0, 'G': 1, 'C': 2, 'T': 3}
     mismatch = [[0,2,3,4],[2,0,5,1],[3,5,0,1],[4,3,1,0]]
+    mismatch = [[0,3,3,3],[3,0,3,3],[3,3,0,3],[3,3,3,0]]
 
     #Creació matriu
+    mat_traceback = []
     for _ in range(len(sequence_1) + 1):
         fila = []
         for _ in range(len(sequence_2) + 1):
             fila.append(0)
         matriu.append(fila)
+        mat_traceback.append(fila[:])
 
     #Sequence 1 vertical, sequence 2 horitzontal
 
     matriu[0][0] = 0
+    mat_traceback[0][0] = "e"
 
     #Omplim la matriu
     for i in range(len(sequence_1)):
         matriu[i+1][0] = matriu[i][0] + gap
+        mat_traceback[i+1][0] = "u"
     for i in range(len(sequence_2)):
         matriu[0][i+1] = matriu[0][i] + gap
+        mat_traceback[0][i+1] = "l"
 
     for i in range(len(sequence_1)):
         for j in range(len(sequence_2)):
-            matriu[i+1][j+1] = min(min(matriu[i+1][j] + gap,matriu[i][j+1] + gap),matriu[i][j] + mismatch[order[sequence_1[i]]][order[sequence_2[j]]])
+            current_min = min(min(matriu[i+1][j] + gap,matriu[i][j+1] + gap),matriu[i][j] + mismatch[order[sequence_1[i]]][order[sequence_2[j]]])
+            matriu[i+1][j+1] = current_min
+            if current_min == matriu[i][j] + mismatch[order[sequence_1[i]]][order[sequence_2[j]]]:
+                mat_traceback[i+1][j+1] = "d"
+            elif current_min == matriu[i+1][j] + gap:
+                mat_traceback[i+1][j+1] = "l"
+            else:
+                mat_traceback[i+1][j+1] = "u"
 
-    #Falta trobar camí més barat ara
+    res = find_path(matriu,(0,0),(len(sequence_1),len(sequence_2)),("",""))
 
-    print("\n".join([str(lin) for lin in matriu]))
+    #print("\n".join([str(lin) for lin in matriu]))
+    #print("\n".join([str(lin) for lin in mat_traceback]))
 
-sequence_alignment_dynamic(seq_1,seq_2)
+    my_x = len(sequence_1)
+    my_y = len(sequence_2)
+    
+    wres_1 = ""
+    wres_2 = ""
+
+    while mat_traceback[my_x][my_y] != "e":
+        if mat_traceback[my_x][my_y] == "d":
+            wres_1 = sequence_1[my_x-1] + wres_1
+            wres_2 = sequence_2[my_y-1] + wres_2
+            my_x -= 1
+            my_y -= 1
+        elif mat_traceback[my_x-1][my_y-1] == "l":
+            wres_2 = "-" + wres_2
+            wres_1 = sequence_1[my_x-1] + wres_1
+            my_x -= 1
+        else:
+            wres_1 = "-" + wres_1
+            wres_2 = sequence_2[my_y-1] + wres_2
+            my_y -= 1
+
+    return wres_1,wres_2,matriu[len(sequence_1)][len(sequence_2)]
+
+seq_1 = "ACGGCTC"
+seq_2 = "ATGGCCTC"
+
+print(sequence_alignment_dynamic(seq_1,seq_2))
+
+res_1 = ""
+    i = 0
+    for char in res[0]:
+        if char == "N":
+            res_1 += sequence_1[i]
+            i += 1
+        else:
+            res_1 += "-"
+    
+    res_2 = ""
+    i = 0
+    for char in res[1]:
+        if char == "N":
+            res_2 += sequence_2[i]
+            i += 1
+        else:
+            res_2 += "-"
