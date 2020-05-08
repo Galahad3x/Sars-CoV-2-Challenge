@@ -41,6 +41,7 @@ import requests
 from time import sleep
 from bs4 import BeautifulSoup
 from selenium import webdriver
+import itertools
 
 #Bloc 3
 
@@ -156,42 +157,85 @@ f.close()
 
 #Bloc 6
 
-#Brute force
-def sequence_alignment_brute(sequence_1,sequence_2):
-    #Trobar tots els camins i calcular el seu cost 
-    # INEFICIENT !!!
-    pass
-
-#Retornarà tupla de strings del estil "NNNGNGNN" on G es Gap i N Nogap
-def find_path(mat,punt,endpoint,results):
-    if punt == endpoint:
-        return results
-    else:
-        try:
-            min_next = min(min(mat[punt[0]+1][punt[1]],mat[punt[0]][punt[1]+1]),mat[punt[0]+1][punt[1]+1])
-        except IndexError:
-            try:
-                min_next = mat[punt[0]+1][punt[1]]
-            except IndexError:
-                return find_path(mat,(punt[0],punt[1]+1),endpoint,(results[0]+"G",results[1]+"N"))
-        if min_next == mat[punt[0]+1][punt[1]+1]:
-            #Gap horitzontal
-            return find_path(mat,(punt[0]+1,punt[1]+1),endpoint,(results[0]+"N",results[1]+"N")) 
-        elif min_next == mat[punt[0]][punt[1]+1]:
-            #Gap vertical
-            return find_path(mat,(punt[0],punt[1]+1),endpoint,(results[0]+"G",results[1]+"N"))
+def calculate_score(seq_1,seq_2,gap,order,mismatch):
+    score = 0
+    for i, char in enumerate(seq_1):
+        if char == "-" or seq_2[i] == "-":
+            score += gap
         else:
-            return find_path(mat,(punt[0]+1,punt[1]),endpoint,(results[0]+"N",results[1]+"G"))
-            
+            score += mismatch[order[char]][order[seq_2[i]]]
+    return score
+
+#Brute force
+def sequence_alignment_brute(sequence_1,sequence_2,gap,order,mismatch):
+    number_of_gaps = abs(len(sequence_1) - len(sequence_2))
+    
+    if number_of_gaps == 0:
+        return calculate_score(sequence_1,sequence_2)
+
+    if len(sequence_1) > len(sequence_2):
+        new = sequence_2
+        while len(new) < len(sequence_1):
+            new += "-"
+        llarg = len(sequence_1)
+    else:
+        new = sequence_1
+        while len(new) < len(sequence_2):
+            new += "-"
+        llarg = len(sequence_2)
+    for char in "ACTG":
+        new = new.replace(char,"X")
+    possible_lineups = list(set(["".join(com) for com in itertools.permutations(new,llarg)]))
+    if len(sequence_1) > len(sequence_2):
+        lineups = []
+        for base_lineup in possible_lineups:
+            lineup = ""
+            i = 0
+            for pos in base_lineup:
+                if pos == "-":
+                    lineup += "-"
+                else:
+                    lineup += sequence_2[i]
+                    i += 1
+            lineups.append(lineup[:])
+    else:
+        lineups = []
+        for base_lineup in possible_lineups:
+            lineup = ""
+            i = 0
+            for pos in base_lineup:
+                if pos == "-":
+                    lineup += "-"
+                else:
+                    lineup += sequence_1[i]
+                    i += 1
+            lineups.append(lineup)
+
+    best_lineup = "",""
+    if len(sequence_1) > len(sequence_2):
+        best_score = calculate_score(sequence_1,lineups[0],gap,order,mismatch)
+        best_lineup = sequence_1, lineups[0]
+        for lineup in lineups[1:]:
+            current_score = calculate_score(sequence_1,lineup,gap,order,mismatch)
+            if current_score < best_score:
+                best_score = current_score
+                best_lineup = sequence_1, lineup
+    else:
+        best_score = calculate_score(lineups[0],sequence_2,gap,order,mismatch)
+        best_lineup = lineups[0], sequence_2
+        for lineup in lineups[1:]:
+            current_score = calculate_score(lineup,sequence_2,gap,order,mismatch)
+            if current_score < best_score:
+                best_score = current_score
+                best_lineup = lineup, sequence_2
+
+    return best_lineup[0], best_lineup[1], best_score
+
+#Bloc 7
 
 #Dynamic programming, Needleman-Wunsch method
-def sequence_alignment_dynamic(sequence_1,sequence_2):
-    gap = 4
+def sequence_alignment_dynamic(sequence_1,sequence_2,gap,order,mismatch):
     matriu = []
-
-    order = { 'A': 0, 'G': 1, 'C': 2, 'T': 3}
-    mismatch = [[0,2,3,4],[2,0,5,1],[3,5,0,1],[4,3,1,0]]
-    mismatch = [[0,3,3,3],[3,0,3,3],[3,3,0,3],[3,3,3,0]]
 
     #Creació matriu
     mat_traceback = []
@@ -254,25 +298,115 @@ def sequence_alignment_dynamic(sequence_1,sequence_2):
 
     return wres_1,wres_2,matriu[len(sequence_1)][len(sequence_2)]
 
+#Bloc 8
+
+def calculate_pos(matriu,i,j,sequence_1,sequence_2,order,mismatch,gap,traceback):
+    #print("\n".join([str(lin) for lin in traceback]))
+    if i > 0 and matriu[i-1][j] == -1:
+        matriu, traceback = calculate_pos(matriu,i-1,j,sequence_1,sequence_2,order,mismatch,gap,traceback)
+    if j > 0 and matriu[i][j-1] == -1:
+        matriu, traceback = calculate_pos(matriu,i,j-1,sequence_1,sequence_2,order,mismatch,gap,traceback)
+    if i > 0 and j > 0 and matriu[i-1][j-1] == -1:
+        matriu, traceback = calculate_pos(matriu,i-1,j-1,sequence_1,sequence_2,order,mismatch,gap,traceback)
+    matriu[i][j] = min(min(matriu[i-1][j] + gap,matriu[i][j-1] + gap),matriu[i-1][j-1] + mismatch[order[sequence_1[i-1]]][order[sequence_2[j-1]]])
+    if matriu[i][j] == matriu[i-1][j] + gap:
+        traceback[i][j] = "l"
+    elif matriu[i][j] == matriu[i][j-1] + gap:
+        traceback[i][j] = "u"
+    else:
+        traceback[i][j] = "d"
+    return matriu, traceback
+
+#Dynamic programming, Needleman-Wunsch method optimized
+def sequence_alignment_dynamic_2(sequence_1,sequence_2,gap,order,mismatch):
+    matriu = []
+
+    #Creació matriu
+    mat_traceback = []
+    for _ in range(len(sequence_1) + 1):
+        fila = []
+        for _ in range(len(sequence_2) + 1):
+            fila.append(-1)
+        matriu.append(fila)
+        mat_traceback.append(fila[:])
+
+    #Sequence 1 vertical, sequence 2 horitzontal
+
+    matriu[0][0] = 0
+    mat_traceback[0][0] = "e"
+
+    #Omplim la matriu
+    for i in range(len(sequence_1)):
+        matriu[i+1][0] = matriu[i][0] + gap
+        mat_traceback[i+1][0] = "u"
+    for i in range(len(sequence_2)):
+        matriu[0][i+1] = matriu[0][i] + gap
+        mat_traceback[0][i+1] = "l"
+
+    cont = 0
+    matriu, mat_traceback = calculate_pos(matriu,len(sequence_1),len(sequence_2),sequence_1,sequence_2,order,mismatch,gap,mat_traceback)
+
+    res = find_path(matriu,(0,0),(len(sequence_1),len(sequence_2)),("",""))
+
+    #print("\n".join([str(lin) for lin in matriu]))
+    #print("\n".join([str(lin) for lin in mat_traceback]))
+
+    my_x = len(sequence_1)
+    my_y = len(sequence_2)
+    
+    wres_1 = ""
+    wres_2 = ""
+
+    while mat_traceback[my_x][my_y] != "e":
+        if mat_traceback[my_x][my_y] == "d":
+            wres_1 = sequence_1[my_x-1] + wres_1
+            wres_2 = sequence_2[my_y-1] + wres_2
+            my_x -= 1
+            my_y -= 1
+        elif mat_traceback[my_x-1][my_y-1] == "l":
+            wres_2 = "-" + wres_2
+            wres_1 = sequence_1[my_x-1] + wres_1
+            my_x -= 1
+        else:
+            wres_1 = "-" + wres_1
+            wres_2 = sequence_2[my_y-1] + wres_2
+            my_y -= 1
+
+    return wres_1,wres_2,matriu[len(sequence_1)][len(sequence_2)]
+
+#Bloc 9
+
+gap = 7
+order = { 'A': 0, 'G': 1, 'C': 2, 'T': 3}
+mismatch = [[0,2,3,4],[2,0,5,1],[3,5,0,1],[4,3,1,0]]
+#mismatch = [[0,3,3,3],[3,0,3,3],[3,3,0,3],[3,3,3,0]]
+
 seq_1 = "ACGGCTC"
 seq_2 = "ATGGCCTC"
 
-print(sequence_alignment_dynamic(seq_1,seq_2))
+print(sequence_alignment_dynamic(seq_1,seq_2,gap,order,mismatch))
+print(sequence_alignment_dynamic_2(seq_1,seq_2,gap,order,mismatch))
+print(sequence_alignment_brute(seq_1,seq_2,gap,order,mismatch))
 
-res_1 = ""
-    i = 0
-    for char in res[0]:
-        if char == "N":
-            res_1 += sequence_1[i]
-            i += 1
+#Basura
+
+#Retornarà tupla de strings del estil "NNNGNGNN" on G es Gap i N Nogap
+def find_path(mat,punt,endpoint,results):
+    if punt == endpoint:
+        return results
+    else:
+        try:
+            min_next = min(min(mat[punt[0]+1][punt[1]],mat[punt[0]][punt[1]+1]),mat[punt[0]+1][punt[1]+1])
+        except IndexError:
+            try:
+                min_next = mat[punt[0]+1][punt[1]]
+            except IndexError:
+                return find_path(mat,(punt[0],punt[1]+1),endpoint,(results[0]+"G",results[1]+"N"))
+        if min_next == mat[punt[0]+1][punt[1]+1]:
+            #Gap horitzontal
+            return find_path(mat,(punt[0]+1,punt[1]+1),endpoint,(results[0]+"N",results[1]+"N")) 
+        elif min_next == mat[punt[0]][punt[1]+1]:
+            #Gap vertical
+            return find_path(mat,(punt[0],punt[1]+1),endpoint,(results[0]+"G",results[1]+"N"))
         else:
-            res_1 += "-"
-    
-    res_2 = ""
-    i = 0
-    for char in res[1]:
-        if char == "N":
-            res_2 += sequence_2[i]
-            i += 1
-        else:
-            res_2 += "-"
+            return find_path(mat,(punt[0]+1,punt[1]),endpoint,(results[0]+"N",results[1]+"G"))
