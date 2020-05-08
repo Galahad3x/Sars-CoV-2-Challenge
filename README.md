@@ -7,6 +7,10 @@ Pràctica d'Algorítmica i Complexitat
 - Hem calculat la mediana accedint a la posició directament, ja que les dades ja estaven ordenades.  
 - Hem accedit a la mostra i l'hem descarregat en format FASTA.
 #### Alineament de seqüències
+##### Força bruta
+- Hem generat tots els alineaments possibles, per després mirar quina és la millor.
 ##### Mètode Needleman-Wunsch
 - Aplicant programació dinàmica, hem creat una taula que ens permet resseguir el camí per alinear les seqüències (traceback matrix).
 - També hem creat una taula que ens permet puntuar la similitud entre les dues seqüències
+##### Mètode Needleman-Wunsch Optimitzat
+- És el mateix que el mètode anterior, però omplim la taula de forma recursiva.
