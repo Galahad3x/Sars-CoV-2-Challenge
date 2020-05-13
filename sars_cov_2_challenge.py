@@ -22,7 +22,7 @@ SI NO:
 + Canviar les variables "csv_datab_name" i "filename" a la carpeta on hi ha la base de dades  
 FINALMENT:
 - Executar el bloc 5  
-- Es pot treballar amb les dades fasta al bloc 6
+- Es pot treballar amb les dades fasta als blocs següents
 """
 
 #Bloc 1
@@ -30,7 +30,8 @@ FINALMENT:
 !pip3 install selenium
 !apt-get update
 !apt install chromium-chromedriver
-!cp /usr/lib/chromium-browser/chromedriver /usr/bin
+!dpkg --configure -a
+!cp /usr/lib/chromium-browser /usr/bin
 
 #Bloc 2
 
@@ -171,7 +172,7 @@ def sequence_alignment_brute(sequence_1,sequence_2,gap,order,mismatch):
     number_of_gaps = abs(len(sequence_1) - len(sequence_2))
     
     if number_of_gaps == 0:
-        return calculate_score(sequence_1,sequence_2)
+        return calculate_score(sequence_1,sequence_2,gap,order,mismatch)
 
     if len(sequence_1) > len(sequence_2):
         new = sequence_2
@@ -234,159 +235,235 @@ def sequence_alignment_brute(sequence_1,sequence_2,gap,order,mismatch):
 #Bloc 7
 
 #Dynamic programming, Needleman-Wunsch method
-def sequence_alignment_dynamic(sequence_1,sequence_2,gap,order,mismatch):
-    matriu = []
+def sequence_alignment_dynamic(sequence_1,sequence_2,gap,order,mismatch,return_traceback):
+    if return_traceback:
+        matriu = []
 
-    #Creació matriu
-    mat_traceback = []
-    for _ in range(len(sequence_1) + 1):
-        fila = []
-        for _ in range(len(sequence_2) + 1):
-            fila.append(0)
-        matriu.append(fila)
-        mat_traceback.append(fila[:])
+        #Creació matriu
+        mat_traceback = []
+        for _ in range(len(sequence_1) + 1):
+            fila = []
+            for _ in range(len(sequence_2) + 1):
+                fila.append(0)
+            matriu.append(fila)
+            mat_traceback.append(fila[:])
 
-    #Sequence 1 vertical, sequence 2 horitzontal
+        #Sequence 1 vertical, sequence 2 horitzontal
 
-    matriu[0][0] = 0
-    mat_traceback[0][0] = "e"
+        matriu[0][0] = 0
+        mat_traceback[0][0] = "e"
 
-    #Omplim la matriu
-    for i in range(len(sequence_1)):
-        matriu[i+1][0] = matriu[i][0] + gap
-        mat_traceback[i+1][0] = "u"
-    for i in range(len(sequence_2)):
-        matriu[0][i+1] = matriu[0][i] + gap
-        mat_traceback[0][i+1] = "l"
+        #Omplim la matriu
+        for i in range(len(sequence_1)):
+            matriu[i+1][0] = matriu[i][0] + gap
+            mat_traceback[i+1][0] = "u"
+        for i in range(len(sequence_2)):
+            matriu[0][i+1] = matriu[0][i] + gap
+            mat_traceback[0][i+1] = "l"
 
-    for i in range(len(sequence_1)):
-        for j in range(len(sequence_2)):
-            current_min = min(min(matriu[i+1][j] + gap,matriu[i][j+1] + gap),matriu[i][j] + mismatch[order[sequence_1[i]]][order[sequence_2[j]]])
-            matriu[i+1][j+1] = current_min
-            if current_min == matriu[i][j] + mismatch[order[sequence_1[i]]][order[sequence_2[j]]]:
-                mat_traceback[i+1][j+1] = "d"
-            elif current_min == matriu[i+1][j] + gap:
-                mat_traceback[i+1][j+1] = "l"
+        for i in range(len(sequence_1)):
+            for j in range(len(sequence_2)):
+                current_min = min(min(matriu[i+1][j] + gap,matriu[i][j+1] + gap),matriu[i][j] + mismatch[order[sequence_1[i]]][order[sequence_2[j]]])
+                matriu[i+1][j+1] = current_min
+                if current_min == matriu[i][j] + mismatch[order[sequence_1[i]]][order[sequence_2[j]]]:
+                    mat_traceback[i+1][j+1] = "d"
+                elif current_min == matriu[i+1][j] + gap:
+                    mat_traceback[i+1][j+1] = "l"
+                else:
+                    mat_traceback[i+1][j+1] = "u"
+
+        #print("\n".join([str(lin) for lin in matriu]))
+        #print("\n".join([str(lin) for lin in mat_traceback]))
+
+        my_x = len(sequence_1)
+        my_y = len(sequence_2)
+        
+        wres_1 = ""
+        wres_2 = ""
+
+        print(matriu[len(sequence_1)][len(sequence_2)])
+
+        while mat_traceback[my_x][my_y] != "e":
+            if mat_traceback[my_x][my_y] == "d":
+                wres_2 = sequence_2[my_y-1] + wres_2
+                wres_1 = sequence_1[my_x-1] + wres_1
+                my_x -= 1
+                my_y -= 1
+            elif mat_traceback[my_x][my_y] == "l":
+                wres_1 = "-" + wres_1
+                wres_2 = sequence_2[my_y-1] + wres_2
+                my_y -= 1
             else:
-                mat_traceback[i+1][j+1] = "u"
+                wres_2 = "-" + wres_2
+                wres_1 = sequence_1[my_x-1] + wres_1
+                my_x -= 1
 
-    res = find_path(matriu,(0,0),(len(sequence_1),len(sequence_2)),("",""))
+        return wres_1,wres_2,matriu[len(sequence_1)][len(sequence_2)]
+    else:
+        matriu = []
 
-    #print("\n".join([str(lin) for lin in matriu]))
-    #print("\n".join([str(lin) for lin in mat_traceback]))
+        #Creació matriu
+        for _ in range(len(sequence_1) + 1):
+            fila = []
+            for _ in range(len(sequence_2) + 1):
+                fila.append(0)
+            matriu.append(fila)
 
-    my_x = len(sequence_1)
-    my_y = len(sequence_2)
-    
-    wres_1 = ""
-    wres_2 = ""
+        #Sequence 1 vertical, sequence 2 horitzontal
 
-    while mat_traceback[my_x][my_y] != "e":
-        if mat_traceback[my_x][my_y] == "d":
-            wres_1 = sequence_1[my_x-1] + wres_1
-            wres_2 = sequence_2[my_y-1] + wres_2
-            my_x -= 1
-            my_y -= 1
-        elif mat_traceback[my_x-1][my_y-1] == "l":
-            wres_2 = "-" + wres_2
-            wres_1 = sequence_1[my_x-1] + wres_1
-            my_x -= 1
-        else:
-            wres_1 = "-" + wres_1
-            wres_2 = sequence_2[my_y-1] + wres_2
-            my_y -= 1
+        matriu[0][0] = 0
 
-    return wres_1,wres_2,matriu[len(sequence_1)][len(sequence_2)]
+        #Omplim la matriu
+        for i in range(len(sequence_1)):
+            matriu[i+1][0] = matriu[i][0] + gap
+        for i in range(len(sequence_2)):
+            matriu[0][i+1] = matriu[0][i] + gap
+
+        for i in range(len(sequence_1)):
+            for j in range(len(sequence_2)):
+                current_min = min(min(matriu[i+1][j] + gap,matriu[i][j+1] + gap),matriu[i][j] + mismatch[order[sequence_1[i]]][order[sequence_2[j]]])
+                matriu[i+1][j+1] = current_min
+
+        #print("\n".join([str(lin) for lin in matriu]))
+        #print("\n".join([str(lin) for lin in mat_traceback]))
+        
+        print(matriu[len(sequence_1)][len(sequence_2)])
+        return matriu[len(sequence_1)][len(sequence_2)]
 
 #Bloc 8
 
-def calculate_pos(matriu,i,j,sequence_1,sequence_2,order,mismatch,gap,traceback):
-    #print("\n".join([str(lin) for lin in traceback]))
-    if i > 0 and matriu[i-1][j] == -1:
-        matriu, traceback = calculate_pos(matriu,i-1,j,sequence_1,sequence_2,order,mismatch,gap,traceback)
-    if j > 0 and matriu[i][j-1] == -1:
-        matriu, traceback = calculate_pos(matriu,i,j-1,sequence_1,sequence_2,order,mismatch,gap,traceback)
-    if i > 0 and j > 0 and matriu[i-1][j-1] == -1:
-        matriu, traceback = calculate_pos(matriu,i-1,j-1,sequence_1,sequence_2,order,mismatch,gap,traceback)
-    matriu[i][j] = min(min(matriu[i-1][j] + gap,matriu[i][j-1] + gap),matriu[i-1][j-1] + mismatch[order[sequence_1[i-1]]][order[sequence_2[j-1]]])
-    if matriu[i][j] == matriu[i-1][j] + gap:
-        traceback[i][j] = "l"
-    elif matriu[i][j] == matriu[i][j-1] + gap:
-        traceback[i][j] = "u"
-    else:
-        traceback[i][j] = "d"
-    return matriu, traceback
-
-#Dynamic programming, Needleman-Wunsch method optimized
-def sequence_alignment_dynamic_2(sequence_1,sequence_2,gap,order,mismatch):
-    matriu = []
-
-    #Creació matriu
-    mat_traceback = []
-    for _ in range(len(sequence_1) + 1):
-        fila = []
-        for _ in range(len(sequence_2) + 1):
-            fila.append(-1)
-        matriu.append(fila)
-        mat_traceback.append(fila[:])
-
-    #Sequence 1 vertical, sequence 2 horitzontal
-
-    matriu[0][0] = 0
-    mat_traceback[0][0] = "e"
-
-    #Omplim la matriu
-    for i in range(len(sequence_1)):
-        matriu[i+1][0] = matriu[i][0] + gap
-        mat_traceback[i+1][0] = "u"
-    for i in range(len(sequence_2)):
-        matriu[0][i+1] = matriu[0][i] + gap
-        mat_traceback[0][i+1] = "l"
-
-    cont = 0
-    matriu, mat_traceback = calculate_pos(matriu,len(sequence_1),len(sequence_2),sequence_1,sequence_2,order,mismatch,gap,mat_traceback)
-
-    res = find_path(matriu,(0,0),(len(sequence_1),len(sequence_2)),("",""))
-
-    #print("\n".join([str(lin) for lin in matriu]))
-    #print("\n".join([str(lin) for lin in mat_traceback]))
-
-    my_x = len(sequence_1)
-    my_y = len(sequence_2)
-    
-    wres_1 = ""
-    wres_2 = ""
-
-    while mat_traceback[my_x][my_y] != "e":
-        if mat_traceback[my_x][my_y] == "d":
-            wres_1 = sequence_1[my_x-1] + wres_1
-            wres_2 = sequence_2[my_y-1] + wres_2
-            my_x -= 1
-            my_y -= 1
-        elif mat_traceback[my_x-1][my_y-1] == "l":
-            wres_2 = "-" + wres_2
-            wres_1 = sequence_1[my_x-1] + wres_1
-            my_x -= 1
+def calculate_pos(matriu,i,j,sequence_1,sequence_2,order,mismatch,gap,traceback,return_traceback):
+    if return_traceback:
+        #print("\n".join([str(lin) for lin in traceback]))
+        if i > 0 and matriu[i-1][j] == -1:
+            matriu, traceback = calculate_pos(matriu,i-1,j,sequence_1,sequence_2,order,mismatch,gap,traceback,return_traceback)
+        if j > 0 and matriu[i][j-1] == -1:
+            matriu, traceback = calculate_pos(matriu,i,j-1,sequence_1,sequence_2,order,mismatch,gap,traceback,return_traceback)
+        if i > 0 and j > 0 and matriu[i-1][j-1] == -1:
+            matriu, traceback = calculate_pos(matriu,i-1,j-1,sequence_1,sequence_2,order,mismatch,gap,traceback,return_traceback)
+        matriu[i][j] = min(min(matriu[i-1][j] + gap,matriu[i][j-1] + gap),matriu[i-1][j-1] + mismatch[order[sequence_1[i-1]]][order[sequence_2[j-1]]])
+        if matriu[i][j] == matriu[i-1][j-1] + mismatch[order[sequence_1[i-1]]][order[sequence_2[j-1]]]:
+            traceback[i][j] = "d"
+        elif matriu[i][j] == matriu[i][j-1] + gap:
+            traceback[i][j] = "u"
         else:
-            wres_1 = "-" + wres_1
-            wres_2 = sequence_2[my_y-1] + wres_2
-            my_y -= 1
+            traceback[i][j] = "l"
+        return matriu, traceback
+    else:
+        if i > 0 and matriu[i-1][j] == -1:
+            matriu = calculate_pos(matriu,i-1,j,sequence_1,sequence_2,order,mismatch,gap,traceback,return_traceback)
+        if j > 0 and matriu[i][j-1] == -1:
+            matriu = calculate_pos(matriu,i,j-1,sequence_1,sequence_2,order,mismatch,gap,traceback,return_traceback)
+        if i > 0 and j > 0 and matriu[i-1][j-1] == -1:
+            matriu = calculate_pos(matriu,i-1,j-1,sequence_1,sequence_2,order,mismatch,gap,traceback,return_traceback)
+        matriu[i][j] = min(min(matriu[i-1][j] + gap,matriu[i][j-1] + gap),matriu[i-1][j-1] + mismatch[order[sequence_1[i-1]]][order[sequence_2[j-1]]])
+        return matriu
 
-    return wres_1,wres_2,matriu[len(sequence_1)][len(sequence_2)]
+#Dynamic programming, Needleman-Wunsch method recursive
+def sequence_alignment_dynamic_2(sequence_1,sequence_2,gap,order,mismatch,return_traceback):
+    try:
+        if return_traceback:
+            matriu = []
+
+            #Creació matriu
+            mat_traceback = []
+            for _ in range(len(sequence_1) + 1):
+                fila = []
+                for _ in range(len(sequence_2) + 1):
+                    fila.append(-1)
+                matriu.append(fila)
+                mat_traceback.append(fila[:])
+
+            #Sequence 1 vertical, sequence 2 horitzontal
+
+            matriu[0][0] = 0
+            mat_traceback[0][0] = "e"
+
+            #Omplim la matriu
+            for i in range(len(sequence_1)):
+                matriu[i+1][0] = matriu[i][0] + gap
+                mat_traceback[i+1][0] = "u"
+            for i in range(len(sequence_2)):
+                matriu[0][i+1] = matriu[0][i] + gap
+                mat_traceback[0][i+1] = "l"
+
+            cont = 0
+            matriu, mat_traceback = calculate_pos(matriu,len(sequence_1),len(sequence_2),sequence_1,sequence_2,order,mismatch,gap,mat_traceback,return_traceback)
+
+            #print("\n".join([str(lin) for lin in matriu]))
+            #print("\n".join([str(lin) for lin in mat_traceback]))
+
+            my_x = len(sequence_1)
+            my_y = len(sequence_2)
+            
+            wres_1 = ""
+            wres_2 = ""
+
+            print(matriu[len(sequence_1)][len(sequence_2)])
+
+            while mat_traceback[my_x][my_y] != "e":
+                if mat_traceback[my_x][my_y] == "d":
+                    wres_2 = sequence_2[my_y-1] + wres_2
+                    wres_1 = sequence_1[my_x-1] + wres_1
+                    my_x -= 1
+                    my_y -= 1
+                elif mat_traceback[my_x][my_y] == "l":
+                    wres_1 = "-" + wres_1
+                    wres_2 = sequence_2[my_y-1] + wres_2
+                    my_y -= 1
+                else:
+                    wres_2 = "-" + wres_2
+                    wres_1 = sequence_1[my_x-1] + wres_1
+                    my_x -= 1
+
+            return wres_1,wres_2,matriu[len(sequence_1)][len(sequence_2)]
+        else:
+            matriu = []
+
+            #Creació matriu
+            for _ in range(len(sequence_1) + 1):
+                fila = []
+                for _ in range(len(sequence_2) + 1):
+                    fila.append(-1)
+                matriu.append(fila)
+
+            #Sequence 1 vertical, sequence 2 horitzontal
+
+            matriu[0][0] = 0
+
+            #Omplim la matriu
+            for i in range(len(sequence_1)):
+                matriu[i+1][0] = matriu[i][0] + gap
+            for i in range(len(sequence_2)):
+                matriu[0][i+1] = matriu[0][i] + gap
+
+            cont = 0
+            matriu = calculate_pos(matriu,len(sequence_1),len(sequence_2),sequence_1,sequence_2,order,mismatch,gap,None,return_traceback)
+
+            print(matriu[len(sequence_1)][len(sequence_2)])
+            return matriu[len(sequence_1)][len(sequence_2)]
+    except RecursionError:
+        print("Maximum recursion depth exceeded")
 
 #Bloc 9
 
 gap = 7
-order = { 'A': 0, 'G': 1, 'C': 2, 'T': 3}
-mismatch = [[0,2,3,4],[2,0,5,1],[3,5,0,1],[4,3,1,0]]
+order = { 'A': 0, 'G': 1, 'C': 2, 'T': 3, 'N': 0}
+mismatch = [[0,2,3,4],
+            [2,0,5,1],
+            [3,5,0,1],
+            [4,3,1,0]]
 #mismatch = [[0,3,3,3],[3,0,3,3],[3,3,0,3],[3,3,3,0]]
 
-seq_1 = "ACGGCTC"
-seq_2 = "ATGGCCTC"
 
-print(sequence_alignment_dynamic(seq_1,seq_2,gap,order,mismatch))
-print(sequence_alignment_dynamic_2(seq_1,seq_2,gap,order,mismatch))
-print(sequence_alignment_brute(seq_1,seq_2,gap,order,mismatch))
+for char_len in range(1,30):
+    seq_1 = open("Spain.fasta","r").read(char_len*1000)
+    seq_2 = open("China.fasta","r").read(char_len*1000)
+
+    print(str(char_len*1000) + " caracters")
+    print(timeit.timeit("sequence_alignment_dynamic(seq_1,seq_2,gap,order,mismatch,False)","from __main__ import sequence_alignment_dynamic,seq_1,seq_2,gap,order,mismatch",number=1))
+    print(timeit.timeit("sequence_alignment_dynamic_2(seq_1,seq_2,gap,order,mismatch,False)","from __main__ import sequence_alignment_dynamic_2,seq_1,seq_2,gap,order,mismatch",number=1))
+    print(timeit.timeit("sequence_alignment_brute(seq_1,seq_2,gap,order,mismatch)","from __main__ import sequence_alignment_brute,seq_1,seq_2,gap,order,mismatch",number=1))
 
 #Basura
 
