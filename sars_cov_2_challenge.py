@@ -27,11 +27,12 @@ FINALMENT:
 
 #Bloc 1
 
-!pip3 install selenium
-!apt-get update
-!apt install chromium-chromedriver
-!dpkg --configure -a
-!cp /usr/lib/chromium-browser /usr/bin
+!pip3 install selenium &
+!apt-get update &
+!apt install chromium-chromedriver &
+!dpkg --configure -a &
+!cp /usr/lib/chromium-browser /usr/bin &
+!clear
 
 #Bloc 2
 
@@ -168,67 +169,62 @@ def calculate_score(seq_1,seq_2,gap,order,mismatch):
     return score
 
 #Brute force
-def sequence_alignment_brute(sequence_1,sequence_2,gap,order,mismatch):
-    number_of_gaps = abs(len(sequence_1) - len(sequence_2))
+def sequence_alignment_brute(sequence_1,sequence_2,gap,order,mismatch):    
+    final_len = len(sequence_1) + len(sequence_2) - 1
+
+    new_1 = sequence_1
+    while len(new_1) < final_len:
+        new_1 += "-"
+    new_2 = sequence_2
+    while len(new_2) < final_len:
+        new_2 += "-"
     
-    if number_of_gaps == 0:
-        return calculate_score(sequence_1,sequence_2,gap,order,mismatch)
-
-    if len(sequence_1) > len(sequence_2):
-        new = sequence_2
-        while len(new) < len(sequence_1):
-            new += "-"
-        llarg = len(sequence_1)
-    else:
-        new = sequence_1
-        while len(new) < len(sequence_2):
-            new += "-"
-        llarg = len(sequence_2)
     for char in "ACTG":
-        new = new.replace(char,"X")
-    possible_lineups = list(set(["".join(com) for com in itertools.permutations(new,llarg)]))
-    if len(sequence_1) > len(sequence_2):
-        lineups = []
-        for base_lineup in possible_lineups:
-            lineup = ""
-            i = 0
-            for pos in base_lineup:
-                if pos == "-":
-                    lineup += "-"
-                else:
-                    lineup += sequence_2[i]
-                    i += 1
-            lineups.append(lineup[:])
-    else:
-        lineups = []
-        for base_lineup in possible_lineups:
-            lineup = ""
-            i = 0
-            for pos in base_lineup:
-                if pos == "-":
-                    lineup += "-"
-                else:
-                    lineup += sequence_1[i]
-                    i += 1
-            lineups.append(lineup)
+        new_1 = new_1.replace(char,"X")
+        new_2 = new_2.replace(char,"X")
+    possible_lineups_1 = list(set(["".join(com) for com in itertools.permutations(new_1,final_len)]))
+    possible_lineups_2 = list(set(["".join(com) for com in itertools.permutations(new_2,final_len)]))
 
+    possible_pairs = list([list(res) for res in itertools.product(possible_lineups_1,possible_lineups_2)])
+    for cont, pair in enumerate(possible_pairs):
+        i = 0
+        while i < len(pair[0]):
+            if pair[0][i] == "-" and pair[1][i] == "-":
+                possible_pairs[cont][0] = possible_pairs[cont][0][0:i] + possible_pairs[cont][0][i+1:len(possible_pairs[cont][0])]
+                possible_pairs[cont][1] = possible_pairs[cont][1][0:i] + possible_pairs[cont][1][i+1:len(possible_pairs[cont][1])]
+            else:
+                i += 1
+    lineups = []
+    for pair in possible_pairs:
+        i = 0
+        latest_1 = ""
+        for ch in pair[0]:
+            if ch == "-":
+                latest_1 += "-"
+            else:
+                latest_1 += sequence_1[i]
+                i += 1
+        i = 0
+        latest_2 = ""
+        for ch in pair[1]:
+            if ch == "-":
+                latest_2 += "-"
+            else:
+                latest_2 += sequence_2[i]
+                i += 1
+        lineups.append((latest_1,latest_2))
+            
     best_lineup = "",""
-    if len(sequence_1) > len(sequence_2):
-        best_score = calculate_score(sequence_1,lineups[0],gap,order,mismatch)
-        best_lineup = sequence_1, lineups[0]
-        for lineup in lineups[1:]:
-            current_score = calculate_score(sequence_1,lineup,gap,order,mismatch)
-            if current_score < best_score:
-                best_score = current_score
-                best_lineup = sequence_1, lineup
-    else:
-        best_score = calculate_score(lineups[0],sequence_2,gap,order,mismatch)
-        best_lineup = lineups[0], sequence_2
-        for lineup in lineups[1:]:
-            current_score = calculate_score(lineup,sequence_2,gap,order,mismatch)
-            if current_score < best_score:
-                best_score = current_score
-                best_lineup = lineup, sequence_2
+    best_score = calculate_score(lineups[0][0],lineups[0][1],gap,order,mismatch)
+    best_lineup = sequence_1, lineups[0]
+    print(best_score,lineups[0])
+    for lineup in lineups[1:]:
+        current_score = calculate_score(lineup[0],lineup[1],gap,order,mismatch)
+        print(best_score,lineup,current_score)
+        if current_score < best_score:
+            best_score = current_score
+            best_lineup = lineup
+            
 
     return best_lineup[0], best_lineup[1], best_score
 
@@ -464,26 +460,3 @@ for char_len in range(1,30):
     print(timeit.timeit("sequence_alignment_dynamic(seq_1,seq_2,gap,order,mismatch,False)","from __main__ import sequence_alignment_dynamic,seq_1,seq_2,gap,order,mismatch",number=1))
     print(timeit.timeit("sequence_alignment_dynamic_2(seq_1,seq_2,gap,order,mismatch,False)","from __main__ import sequence_alignment_dynamic_2,seq_1,seq_2,gap,order,mismatch",number=1))
     print(timeit.timeit("sequence_alignment_brute(seq_1,seq_2,gap,order,mismatch)","from __main__ import sequence_alignment_brute,seq_1,seq_2,gap,order,mismatch",number=1))
-
-#Basura
-
-#Retornarà tupla de strings del estil "NNNGNGNN" on G es Gap i N Nogap
-def find_path(mat,punt,endpoint,results):
-    if punt == endpoint:
-        return results
-    else:
-        try:
-            min_next = min(min(mat[punt[0]+1][punt[1]],mat[punt[0]][punt[1]+1]),mat[punt[0]+1][punt[1]+1])
-        except IndexError:
-            try:
-                min_next = mat[punt[0]+1][punt[1]]
-            except IndexError:
-                return find_path(mat,(punt[0],punt[1]+1),endpoint,(results[0]+"G",results[1]+"N"))
-        if min_next == mat[punt[0]+1][punt[1]+1]:
-            #Gap horitzontal
-            return find_path(mat,(punt[0]+1,punt[1]+1),endpoint,(results[0]+"N",results[1]+"N")) 
-        elif min_next == mat[punt[0]][punt[1]+1]:
-            #Gap vertical
-            return find_path(mat,(punt[0],punt[1]+1),endpoint,(results[0]+"G",results[1]+"N"))
-        else:
-            return find_path(mat,(punt[0]+1,punt[1]),endpoint,(results[0]+"N",results[1]+"G"))
