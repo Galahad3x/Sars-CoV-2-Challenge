@@ -32,7 +32,6 @@ FINALMENT:
 !apt install chromium-chromedriver &
 !dpkg --configure -a &
 !cp /usr/lib/chromium-browser /usr/bin &
-!clear
 
 #Bloc 2
 
@@ -44,6 +43,13 @@ from time import sleep
 from bs4 import BeautifulSoup
 from selenium import webdriver
 import itertools
+
+gap = 7
+order = { 'A': 0, 'G': 1, 'C': 2, 'T': 3, 'N': 0}
+mismatch = [[0,2,3,4],
+            [2,0,5,1],
+            [3,5,0,1],
+            [4,3,1,0]]
 
 #Bloc 3
 
@@ -443,12 +449,31 @@ def sequence_alignment_dynamic_2(sequence_1,sequence_2,gap,order,mismatch,return
 
 #Bloc 9
 
-gap = 7
-order = { 'A': 0, 'G': 1, 'C': 2, 'T': 3, 'N': 0}
-mismatch = [[0,2,3,4],
-            [2,0,5,1],
-            [3,5,0,1],
-            [4,3,1,0]]
+#Dynamic programming, Needleman-Wunsch simple
+def sequence_alignment_dynamic_score(sequence_1,sequence_2,gap,order,mismatch):
+    top_line = [i*gap for i in range(len(sequence_2) + 1)]
+    vertical_seq = [i*gap for i in range(len(sequence_1) + 1)]
+
+    line_c = 0
+    col_c = 0
+
+    while line_c <= len(sequence_1):
+        print(top_line)
+        current_line = []
+        current_line.append(vertical_seq[line_c])
+        col_c = 1
+        while len(current_line) < len(top_line):
+            current_line.append(min(min(current_line[col_c-1] + gap,top_line[col_c] + gap),top_line[col_c-1] + mismatch[order[sequence_1[line_c-1]]][order[sequence_2[col_c-1]]]))
+            col_c += 1
+        top_line = current_line
+        line_c += 1
+
+    return top_line[-1]
+
+print(sequence_alignment_dynamic_score("TACC","ACCG",gap,order,mismatch))
+
+#Bloc 10
+
 #mismatch = [[0,3,3,3],[3,0,3,3],[3,3,0,3],[3,3,3,0]]
 
 
