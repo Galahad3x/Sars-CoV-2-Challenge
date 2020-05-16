@@ -17,3 +17,7 @@ Pràctica d'Algorítmica i Complexitat
 - L'algoritme té 2 versions, una per trobar la puntuació i l'alineament i una altra que només troba la puntuació.
 ##### Mètode Needleman-Wunsch Optimitzat
 - És el mateix que el mètode anterior, però omplim la taula de forma recursiva. No ens és gaire útil, ja que a partir de pocs caràcters (més o menys 1000) salta l'error RecursionError: Maximum recursion depth exceeded.
+#### Mètode de classificació
+##### Hierarchical clustering
+- Utilitzant una matriu de distàncies.
+- Per fusionar dues matrius, fer la mitjana dels 2 elements.
