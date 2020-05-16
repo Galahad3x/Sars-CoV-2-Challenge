@@ -45,7 +45,7 @@ from selenium import webdriver
 import itertools
 
 gap = 7
-order = { 'A': 0, 'G': 1, 'C': 2, 'T': 3, 'N': 0}
+order = { 'A': 0, 'G': 1, 'C': 2, 'T': 3}
 mismatch = [[0,2,3,4],
             [2,0,5,1],
             [3,5,0,1],
@@ -185,7 +185,7 @@ def sequence_alignment_brute(sequence_1,sequence_2,gap,order,mismatch):
     while len(new_2) < final_len:
         new_2 += "-"
     
-    for char in "ACTG":
+    for char in "ACTGN":
         new_1 = new_1.replace(char,"X")
         new_2 = new_2.replace(char,"X")
     possible_lineups_1 = list(set(["".join(com) for com in itertools.permutations(new_1,final_len)]))
@@ -208,7 +208,12 @@ def sequence_alignment_brute(sequence_1,sequence_2,gap,order,mismatch):
             if ch == "-":
                 latest_1 += "-"
             else:
-                latest_1 += sequence_1[i]
+                if sequence_1[i] != 'N':
+                    latest_1 += sequence_1[i]
+                elif sequence_2[i] != 'N':
+                    latest_1 += sequence_2[i]
+                else:
+                    latest_1 += 'A'
                 i += 1
         i = 0
         latest_2 = ""
@@ -216,17 +221,20 @@ def sequence_alignment_brute(sequence_1,sequence_2,gap,order,mismatch):
             if ch == "-":
                 latest_2 += "-"
             else:
-                latest_2 += sequence_2[i]
+                if sequence_2[i] != 'N':
+                    latest_1 += sequence_2[i]
+                elif sequence_1[i] != 'N':
+                    latest_1 += sequence_1[i]
+                else:
+                    latest_1 += 'A'
                 i += 1
         lineups.append((latest_1,latest_2))
             
     best_lineup = "",""
     best_score = calculate_score(lineups[0][0],lineups[0][1],gap,order,mismatch)
     best_lineup = sequence_1, lineups[0]
-    print(best_score,lineups[0])
     for lineup in lineups[1:]:
         current_score = calculate_score(lineup[0],lineup[1],gap,order,mismatch)
-        print(best_score,lineup,current_score)
         if current_score < best_score:
             best_score = current_score
             best_lineup = lineup
@@ -265,7 +273,11 @@ def sequence_alignment_dynamic(sequence_1,sequence_2,gap,order,mismatch,return_t
 
         for i in range(len(sequence_1)):
             for j in range(len(sequence_2)):
-                current_min = min(min(matriu[i+1][j] + gap,matriu[i][j+1] + gap),matriu[i][j] + mismatch[order[sequence_1[i]]][order[sequence_2[j]]])
+                if sequence_1[i] == 'N' or sequence_2[j] == "N":
+                    mismatch_value = matriu[i][j]
+                else:
+                    mismatch_value = matriu[i][j] + mismatch[order[sequence_1[i]]][order[sequence_2[j]]]
+                current_min = min(min(matriu[i+1][j] + gap,matriu[i][j+1] + gap),mismatch_value)
                 matriu[i+1][j+1] = current_min
                 if current_min == matriu[i][j] + mismatch[order[sequence_1[i]]][order[sequence_2[j]]]:
                     mat_traceback[i+1][j+1] = "d"
@@ -323,7 +335,11 @@ def sequence_alignment_dynamic(sequence_1,sequence_2,gap,order,mismatch,return_t
 
         for i in range(len(sequence_1)):
             for j in range(len(sequence_2)):
-                current_min = min(min(matriu[i+1][j] + gap,matriu[i][j+1] + gap),matriu[i][j] + mismatch[order[sequence_1[i]]][order[sequence_2[j]]])
+                if sequence_1[i] == 'N' or sequence_2[j] == "N":
+                    mismatch_value = matriu[i][j]
+                else:
+                    mismatch_value = matriu[i][j] + mismatch[order[sequence_1[i]]][order[sequence_2[j]]]
+                current_min = min(min(matriu[i+1][j] + gap,matriu[i][j+1] + gap),mismatch_value)
                 matriu[i+1][j+1] = current_min
 
         #print("\n".join([str(lin) for lin in matriu]))
@@ -343,7 +359,11 @@ def calculate_pos(matriu,i,j,sequence_1,sequence_2,order,mismatch,gap,traceback,
             matriu, traceback = calculate_pos(matriu,i,j-1,sequence_1,sequence_2,order,mismatch,gap,traceback,return_traceback)
         if i > 0 and j > 0 and matriu[i-1][j-1] == -1:
             matriu, traceback = calculate_pos(matriu,i-1,j-1,sequence_1,sequence_2,order,mismatch,gap,traceback,return_traceback)
-        matriu[i][j] = min(min(matriu[i-1][j] + gap,matriu[i][j-1] + gap),matriu[i-1][j-1] + mismatch[order[sequence_1[i-1]]][order[sequence_2[j-1]]])
+        if sequence_1[i] == 'N' or sequence_2[j] == "N":
+            mismatch_value = matriu[i-1][j-1]
+        else:
+            mismatch_value = matriu[i-1][j-1] + mismatch[order[sequence_1[i-1]]][order[sequence_2[j-1]]]
+        matriu[i][j] = min(min(matriu[i-1][j] + gap,matriu[i][j-1] + gap),mismatch_value)
         if matriu[i][j] == matriu[i-1][j-1] + mismatch[order[sequence_1[i-1]]][order[sequence_2[j-1]]]:
             traceback[i][j] = "d"
         elif matriu[i][j] == matriu[i][j-1] + gap:
@@ -358,7 +378,11 @@ def calculate_pos(matriu,i,j,sequence_1,sequence_2,order,mismatch,gap,traceback,
             matriu = calculate_pos(matriu,i,j-1,sequence_1,sequence_2,order,mismatch,gap,traceback,return_traceback)
         if i > 0 and j > 0 and matriu[i-1][j-1] == -1:
             matriu = calculate_pos(matriu,i-1,j-1,sequence_1,sequence_2,order,mismatch,gap,traceback,return_traceback)
-        matriu[i][j] = min(min(matriu[i-1][j] + gap,matriu[i][j-1] + gap),matriu[i-1][j-1] + mismatch[order[sequence_1[i-1]]][order[sequence_2[j-1]]])
+        if sequence_1[i] == 'N' or sequence_2[j] == "N":
+            mismatch_value = matriu[i-1][j-1]
+        else:
+            mismatch_value = matriu[i-1][j-1] + mismatch[order[sequence_1[i-1]]][order[sequence_2[j-1]]]
+        matriu[i][j] = min(min(matriu[i-1][j] + gap,matriu[i][j-1] + gap),mismatch_value)
         return matriu
 
 #Dynamic programming, Needleman-Wunsch method recursive
@@ -463,7 +487,11 @@ def sequence_alignment_dynamic_score(sequence_1,sequence_2,gap,order,mismatch):
         current_line.append(vertical_seq[line_c])
         col_c = 1
         while len(current_line) < len(top_line):
-            current_line.append(min(min(current_line[col_c-1] + gap,top_line[col_c] + gap),top_line[col_c-1] + mismatch[order[sequence_1[line_c-1]]][order[sequence_2[col_c-1]]]))
+            if sequence_1[i] == 'N' or sequence_2[j] == "N":
+                mismatch_value = top_line[col_c-1]
+            else:
+                mismatch_value = top_line[col_c-1] + mismatch[order[sequence_1[line_c-1]]][order[sequence_2[col_c-1]]]
+            current_line.append(min(min(current_line[col_c-1] + gap,top_line[col_c] + gap),mismatch_value))
             col_c += 1
         top_line = current_line
         line_c += 1
