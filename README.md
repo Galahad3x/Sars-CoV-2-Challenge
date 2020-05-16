@@ -10,13 +10,15 @@ Pràctica d'Algorítmica i Complexitat
 - Sense RAM a partir de ~26000 caracters (25GB)
 - Separar les seqüències no seria possible (error AAAC-AC)
 ##### Força bruta
-- Hem generat tots els alineaments possibles, per després mirar quina és la millor. No és fiable si les mostres tenen la mateixa llargada, ja que no genera més alineacions.
+- Hem generat tots els alineaments possibles, per després mirar quina és la millor. No és fiable, ja que tarda massa i gasta molta memòria.
 ##### Mètode Needleman-Wunsch
 - Aplicant programació dinàmica, hem creat una taula que ens permet resseguir el camí per alinear les seqüències (traceback matrix).
 - També hem creat una taula que ens permet puntuar la similitud entre les dues seqüències.
 - L'algoritme té 2 versions, una per trobar la puntuació i l'alineament i una altra que només troba la puntuació.
 ##### Mètode Needleman-Wunsch Optimitzat
 - És el mateix que el mètode anterior, però omplim la taula de forma recursiva. No ens és gaire útil, ja que a partir de pocs caràcters (més o menys 1000) salta l'error RecursionError: Maximum recursion depth exceeded.
+##### Mètode Needleman-Wunsch Simple
+- És el mètode Needleman-Wunsch iteratiu però, enlloc de generar la matriu completa solament genera una fila utilitzant l'anterior. No ens serveix per a trobar l'alineament de les seqüències, però si per a trobar la seva puntuació.
 #### Mètode de classificació
 ##### Hierarchical clustering
 - Utilitzant una matriu de distàncies.
