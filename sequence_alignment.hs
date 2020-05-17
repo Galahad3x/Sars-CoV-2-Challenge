@@ -19,8 +19,8 @@ main = do
     contents2 <- hGetContents handle2
     print $ alignment_total (init contents1) (init contents2)
 
-alignment_total :: String -> String -> ([String], Int)
-alignment_total seq1 seq2 = (((tracing score_matrix)),(last (last score_matrix)))
+alignment_total :: String -> String -> ((String, String), Int)
+alignment_total seq1 seq2 = ((trace_back (tracing score_matrix) seq1 seq2),(last (last score_matrix)))
     where score_matrix = align seq1 seq2
 
 --alignment_total :: String -> String -> ((String, String), Int)
