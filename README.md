@@ -23,3 +23,5 @@ Pràctica d'Algorítmica i Complexitat
 ##### Hierarchical clustering
 - Utilitzant una matriu de distàncies.
 - Per fusionar dues matrius, fer la mitjana dels 2 elements.
+##### K-medoids:
+- K-means pero tunejat
