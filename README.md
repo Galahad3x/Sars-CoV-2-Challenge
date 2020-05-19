@@ -1,5 +1,9 @@
 # Sars-CoV-2-Challenge
 Pràctica d'Algorítmica i Complexitat  
+### Fitxers per a l'execució:
+- sarscovhierarcy.py -> Fitxer principal (NO FET)
+- fasta_finder.py -> Utilitza all_sequences.csv per a descarregar les mostres FASTA, i guarda el que ha tardat a time.txt
+- all_sequences.csv -> Dades sobre totes les seqüències en format CSV
 ### Preprocessament:
 #### Càlcul de medianes:
 - Hem descarregat la informació en csv de totes les seqüències, ordenades per llargada ("all_sequences.csv").
