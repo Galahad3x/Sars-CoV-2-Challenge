@@ -21,7 +21,6 @@ int main(int argc, char *argv[]) {
 	sequenceAlignmentDynamic(sequence1, sequence2, 1);
 }
 
-
 void sequenceAlignmentDynamic(char sequence1[], char sequence2[], int returnTraceback) {
 	int gap = 7;
 	int miss_match[][4] = {{0,2,3,4}, {2,0,5,1}, {3,5,0,1}, {4,3,1,0}};
