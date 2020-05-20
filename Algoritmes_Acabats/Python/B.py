@@ -1,4 +1,7 @@
+#!/usr/bin/python3
+
 import sys
+import itertools
 
 gap = 7
 order = { 'A': 0, 'G': 1, 'C': 2, 'T': 3}
@@ -26,7 +29,7 @@ def sequence_alignment_brute(sequence_1,sequence_2,gap,order,mismatch):
     new_2 = sequence_2
     while len(new_2) < final_len:
         new_2 += "-"
-    
+
     for char in "ACTGN":
         new_1 = new_1.replace(char,"X")
         new_2 = new_2.replace(char,"X")
@@ -34,6 +37,7 @@ def sequence_alignment_brute(sequence_1,sequence_2,gap,order,mismatch):
     possible_lineups_2 = list(set(["".join(com) for com in itertools.permutations(new_2,final_len)]))
 
     possible_pairs = list([list(res) for res in itertools.product(possible_lineups_1,possible_lineups_2)])
+
     for cont, pair in enumerate(possible_pairs):
         i = 0
         while i < len(pair[0]):
@@ -64,11 +68,11 @@ def sequence_alignment_brute(sequence_1,sequence_2,gap,order,mismatch):
                 latest_2 += "-"
             else:
                 if sequence_2[i] != 'N':
-                    latest_1 += sequence_2[i]
+                    latest_2 += sequence_2[i]
                 elif sequence_1[i] != 'N':
-                    latest_1 += sequence_1[i]
+                    latest_2 += sequence_1[i]
                 else:
-                    latest_1 += 'A'
+                    latest_2 += 'A'
                 i += 1
         lineups.append((latest_1,latest_2))
             
@@ -87,5 +91,5 @@ def sequence_alignment_brute(sequence_1,sequence_2,gap,order,mismatch):
 file1 = open(sys.argv[1],"r")
 file2 = open(sys.argv[2],"r")
 
-print(sequence_alignment_brute(file1.read()[:-1],file2.read()[:-1],gap,order,mismatch,False))
+print(sequence_alignment_brute(file1.read()[:-1],file2.read()[:-1],gap,order,mismatch))
 

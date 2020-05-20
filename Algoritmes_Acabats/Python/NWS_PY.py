@@ -29,7 +29,6 @@ def sequence_alignment_dynamic_score(sequence_1,sequence_2,gap,order,mismatch):
         for i in range(len(top_line)):                
             top_line[i] = current_line[i]
         line_c += 1
-        print(line_c)
 
     print(top_line[-1])
     return top_line[-1]
