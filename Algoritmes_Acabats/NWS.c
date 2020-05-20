@@ -37,6 +37,7 @@ void sequenceAlignmentSimple(char sequence1[], char sequence2[], int returnTrace
 	}
 
 	for (int i = 0; i < strlen(sequence1); i++) {
+        printf("%i\n",i);
         current_line[0] = top_line[0]+gap;
 		for (int j = 0; j < strlen(sequence2); j++) {
 			if (sequence1[i] == 'N' || sequence2[j] == 'N') {
