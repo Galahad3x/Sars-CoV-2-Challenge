@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 import csv
 import sys
 import os
@@ -84,6 +86,7 @@ def get_files(country_data):
     f2 = open(filename,"w+")
     f2.write("".join(soup.find(id="viewercontent1").text.split("\n")[1:]))
     f2.close()
+    driver.close()
 
 #Bloc 5
 
