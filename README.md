@@ -3,6 +3,7 @@ Pràctica d'Algorítmica i Complexitat
 ### Fitxers per a l'execució:
 - sarscovhierarcy.py -> Fitxer principal (NO FET)
 - fasta_finder.py -> Utilitza all_sequences.csv per a descarregar les mostres FASTA, i guarda el que ha tardat a time.txt. És possible que s'hagi d'executar com a sudo, ja que instal·la algunes llibreries.
+- fasta_fixer.py -> Ens servirà per a substituïr nucleòtids que s'utilitzen com a abreviació. S'executa dins de fasta_finder.
 - all_sequences.csv -> Dades sobre totes les seqüències en format CSV
 ### Preprocessament:
 #### Càlcul de medianes:
