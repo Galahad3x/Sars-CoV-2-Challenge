@@ -8,7 +8,6 @@ int orderFunction(char character);
 void reverse(char *s);
 int string_length(char *pointer);
 
-
 int main(int argc, char *argv[]) {
 	FILE *file1 = fopen(argv[1], "r");
 	char sequence1[30000];
@@ -181,4 +180,3 @@ int orderFunction(char character) {
     	return 3;
     }
 }
-
