@@ -1,4 +1,6 @@
 import csv
+import sys
+import os
 import timeit
 import math
 import requests
@@ -6,12 +8,7 @@ from time import sleep
 from bs4 import BeautifulSoup
 from selenium import webdriver
 import itertools
-
-os.system("pip3 install selenium &")
-os.system("apt-get update &")
-os.system("apt install chromium-chromedriver &")
-os.system("dpkg --configure -a &")
-os.system("cp /usr/lib/chromium-browser /usr/bin &")
+import glob
 
 gap = 7
 order = { 'A': 0, 'G': 1, 'C': 2, 'T': 3}
@@ -71,7 +68,9 @@ def country_medians(data):
 
 def get_files(country_data):
     url = "https://www.ncbi.nlm.nih.gov/nuccore/" + str(country_data[2]) + ".1?report=fasta"
-    filename = str(country_data[0]) + ".fasta"
+
+    #Canviar a ruta local
+    filename = sys.argv[1] + "/Mostres/" + str(country_data[0]) + ".fasta"
 
     chrome_options = webdriver.ChromeOptions()
     chrome_options.add_argument('--headless')
@@ -82,9 +81,9 @@ def get_files(country_data):
     sleep(0.2)
     soup = BeautifulSoup(driver.page_source, 'lxml')
 
-    f = open(filename,"w")
-    f.write("".join(soup.find(id="viewercontent1").text.split("\n")[1:]))
-    f.close()
+    f2 = open(filename,"w+")
+    f2.write("".join(soup.find(id="viewercontent1").text.split("\n")[1:]))
+    f2.close()
 
 #Bloc 5
 
@@ -112,7 +111,8 @@ f.write(str(timeit.timeit("country_medians(my_countries)","from __main__ import 
 
 #O(M)
 total_timeit = 0.0
-for data in medians[7:9]:
+for data in medians:
+    print("Downloading data: " + data[0])
     get_files(data)
     total_timeit += timeit.timeit("get_files(data)","from __main__ import get_files,data",number=1)
 
@@ -120,6 +120,18 @@ f.write("Total file scraping: \n")
 f.write(str(total_timeit) + "\n")
 f.write("Average file scraping: \n")
 f.write(str(total_timeit/len(medians)) + "\n")
+
+#Canviar a ruta local
+all_country_files = glob.glob(sys.argv[1] + "/Mostres/*.fasta")
+total_timeit = 0.0
+for country in all_country_files:
+    comm = "os.system(\"python3 fasta_fixer.py " + country + "\")"
+    total_timeit += timeit.timeit(comm,"import __main__,os",number=1)
+
+f.write("Total file fixing: \n")
+f.write(str(total_timeit) + "\n")
+f.write("Average file fixing: \n")
+f.write(str(total_timeit/len(all_country_files)) + "\n")
 
 print("DONE")
 

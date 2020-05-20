@@ -18,9 +18,7 @@ def replace_nuc(first_file):
 
 my_file = open(sys.argv[1],"r").read()[:-1]
 
-print(my_file)
 my_file = replace_nuc(my_file)
-print(my_file)
 
 new_filename = sys.argv[1].split(".")[0] + "2." + sys.argv[1].split(".")[1] 
 
