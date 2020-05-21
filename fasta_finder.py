@@ -91,7 +91,7 @@ def get_files(country_data):
 #Bloc 5
 
 #Ruta Joel A, l'haureu de canviar si ho voleu provar
-csv_datab_route = "all_sequences.csv"
+csv_datab_route = sys.argv[1]
 file_route = "time.txt"
 f = open(file_route,"w")
 
