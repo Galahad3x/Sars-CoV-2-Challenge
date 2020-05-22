@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<head>    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+        <script>
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        </script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.6.0/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.6.0/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://rawcdn.githack.com/python-visualization/folium/master/folium/templates/leaflet.awesome.rotate.css"/>
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_162bae6db75a4395908fd08a6189225f {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+            </style>
+        
+</head>
+<body>    
+    
+            <div class="folium-map" id="map_162bae6db75a4395908fd08a6189225f" ></div>
+        
+</body>
+<script>    
+    
+            var map_162bae6db75a4395908fd08a6189225f = L.map(
+                "map_162bae6db75a4395908fd08a6189225f",
+                {
+                    center: [40.416775, -3.70379],
+                    crs: L.CRS.EPSG3857,
+                    zoom: 2,
+                    zoomControl: true,
+                    preferCanvas: false,
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_a98ceb204f0c445a8e5fb6e5c9fb70a0 = L.tileLayer(
+                "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {"attribution": "Data by \u0026copy; \u003ca href=\"http://openstreetmap.org\"\u003eOpenStreetMap\u003c/a\u003e, under \u003ca href=\"http://www.openstreetmap.org/copyright\"\u003eODbL\u003c/a\u003e.", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+            ).addTo(map_162bae6db75a4395908fd08a6189225f);
+        
+    
+            var marker_460f66086953424da65fdcd9e9b14435 = L.marker(
+                [59.334591, 18.06324],
+                {}
+            ).addTo(map_162bae6db75a4395908fd08a6189225f);
+        
+    
+            var icon_1cb6fa98c50e46b69256f90768537b4d = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "glyphicon-map-marker", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_460f66086953424da65fdcd9e9b14435.setIcon(icon_1cb6fa98c50e46b69256f90768537b4d);
+        
+    
+        var popup_6525f707a060418cacab2833a2a10926 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_a7e6033acc2c450baf8c0583b660ffff = $(`<div id="html_a7e6033acc2c450baf8c0583b660ffff" style="width: 100.0%; height: 100.0%;">Sweden</div>`)[0];
+            popup_6525f707a060418cacab2833a2a10926.setContent(html_a7e6033acc2c450baf8c0583b660ffff);
+        
+
+        marker_460f66086953424da65fdcd9e9b14435.bindPopup(popup_6525f707a060418cacab2833a2a10926)
+        ;
+
+        
+    
+    
+            var marker_76af0f91e51347d79ee90dd87748f9f2 = L.marker(
+                [22.3193, 114.1694],
+                {}
+            ).addTo(map_162bae6db75a4395908fd08a6189225f);
+        
+    
+            var icon_5e41754e9fd74b07b63ee0e7bbdd9962 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "glyphicon-map-marker", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_76af0f91e51347d79ee90dd87748f9f2.setIcon(icon_5e41754e9fd74b07b63ee0e7bbdd9962);
+        
+    
+        var popup_38d1f8b24e8f4fe5803bd4cc09220c22 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_2422af1ebe964b58a9fcb2ebeb87221d = $(`<div id="html_2422af1ebe964b58a9fcb2ebeb87221d" style="width: 100.0%; height: 100.0%;">Hong</div>`)[0];
+            popup_38d1f8b24e8f4fe5803bd4cc09220c22.setContent(html_2422af1ebe964b58a9fcb2ebeb87221d);
+        
+
+        marker_76af0f91e51347d79ee90dd87748f9f2.bindPopup(popup_38d1f8b24e8f4fe5803bd4cc09220c22)
+        ;
+
+        
+    
+    
+            var marker_14695c9ab72448869b9a512d519349e5 = L.marker(
+                [7.8731, 80.7718],
+                {}
+            ).addTo(map_162bae6db75a4395908fd08a6189225f);
+        
+    
+            var icon_4154336c6f674f5fa40712228add9240 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "glyphicon-map-marker", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_14695c9ab72448869b9a512d519349e5.setIcon(icon_4154336c6f674f5fa40712228add9240);
+        
+    
+        var popup_5511b56d573943b6a32d31fea4bb3bb1 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_998a2a30e5e74fcaaa0f6593a33f0c9a = $(`<div id="html_998a2a30e5e74fcaaa0f6593a33f0c9a" style="width: 100.0%; height: 100.0%;">Sri</div>`)[0];
+            popup_5511b56d573943b6a32d31fea4bb3bb1.setContent(html_998a2a30e5e74fcaaa0f6593a33f0c9a);
+        
+
+        marker_14695c9ab72448869b9a512d519349e5.bindPopup(popup_5511b56d573943b6a32d31fea4bb3bb1)
+        ;
+
+        
+    
+    
+            var marker_4518db39e6bd4294a4502af164c867e8 = L.marker(
+                [30.5928, 114.3055],
+                {}
+            ).addTo(map_162bae6db75a4395908fd08a6189225f);
+        
+    
+            var icon_00b5126dc17d4e0182e300e13eaf6626 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "glyphicon-map-marker", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_4518db39e6bd4294a4502af164c867e8.setIcon(icon_00b5126dc17d4e0182e300e13eaf6626);
+        
+    
+        var popup_2c15fe180e39488ba6d7cb2ce413ee4f = L.popup({"maxWidth": "100%"});
+
+        
+            var html_1055201adfc8475989b3264deb21b73e = $(`<div id="html_1055201adfc8475989b3264deb21b73e" style="width: 100.0%; height: 100.0%;">China:Wuhan</div>`)[0];
+            popup_2c15fe180e39488ba6d7cb2ce413ee4f.setContent(html_1055201adfc8475989b3264deb21b73e);
+        
+
+        marker_4518db39e6bd4294a4502af164c867e8.bindPopup(popup_2c15fe180e39488ba6d7cb2ce413ee4f)
+        ;
+
+        
+    
+    
+            var marker_6623b84dc6c949d18e6ed49636fbc6f3 = L.marker(
+                [37.0902, -95.7129],
+                {}
+            ).addTo(map_162bae6db75a4395908fd08a6189225f);
+        
+    
+            var icon_a0ce06d7bd3d4704ab0a65adf0b07282 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "glyphicon-map-marker", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_6623b84dc6c949d18e6ed49636fbc6f3.setIcon(icon_a0ce06d7bd3d4704ab0a65adf0b07282);
+        
+    
+        var popup_e5aa776e17584fd2b0775f9657e3ec32 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_d840a308041b4206aabd2f2b32b08626 = $(`<div id="html_d840a308041b4206aabd2f2b32b08626" style="width: 100.0%; height: 100.0%;">USA</div>`)[0];
+            popup_e5aa776e17584fd2b0775f9657e3ec32.setContent(html_d840a308041b4206aabd2f2b32b08626);
+        
+
+        marker_6623b84dc6c949d18e6ed49636fbc6f3.bindPopup(popup_e5aa776e17584fd2b0775f9657e3ec32)
+        ;
+
+        
+    
+    
+            var marker_7476574940394fdd8843f2f5eecc873d = L.marker(
+                [36.2048, 138.2529],
+                {}
+            ).addTo(map_162bae6db75a4395908fd08a6189225f);
+        
+    
+            var icon_e8b3c6006a1b4f329337a916fceca821 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "glyphicon-map-marker", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_7476574940394fdd8843f2f5eecc873d.setIcon(icon_e8b3c6006a1b4f329337a916fceca821);
+        
+    
+        var popup_f95fd67055604bc3b8945f8a84f384ce = L.popup({"maxWidth": "100%"});
+
+        
+            var html_327aac4f66fb41c1a08edfff1ba9843d = $(`<div id="html_327aac4f66fb41c1a08edfff1ba9843d" style="width: 100.0%; height: 100.0%;">Japan</div>`)[0];
+            popup_f95fd67055604bc3b8945f8a84f384ce.setContent(html_327aac4f66fb41c1a08edfff1ba9843d);
+        
+
+        marker_7476574940394fdd8843f2f5eecc873d.bindPopup(popup_f95fd67055604bc3b8945f8a84f384ce)
+        ;
+
+        
+    
+    
+            var marker_79cb4da2ff734164b727adfa28c5b952 = L.marker(
+                [23.6978, 120.9605],
+                {}
+            ).addTo(map_162bae6db75a4395908fd08a6189225f);
+        
+    
+            var icon_80a530293d80472e8adba2ba0df4801c = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "glyphicon-map-marker", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_79cb4da2ff734164b727adfa28c5b952.setIcon(icon_80a530293d80472e8adba2ba0df4801c);
+        
+    
+        var popup_ffba5a29188249d78557398e703bed88 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_afab359b1fef466880c7cbbc533a05ea = $(`<div id="html_afab359b1fef466880c7cbbc533a05ea" style="width: 100.0%; height: 100.0%;">Taiwan</div>`)[0];
+            popup_ffba5a29188249d78557398e703bed88.setContent(html_afab359b1fef466880c7cbbc533a05ea);
+        
+
+        marker_79cb4da2ff734164b727adfa28c5b952.bindPopup(popup_ffba5a29188249d78557398e703bed88)
+        ;
+
+        
+    
+    
+            var marker_e2e316219f284ecb902b956f5234b391 = L.marker(
+                [46.2276, 2.2137],
+                {}
+            ).addTo(map_162bae6db75a4395908fd08a6189225f);
+        
+    
+            var icon_22522a1499bb40e48c57dc279ab41960 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "glyphicon-map-marker", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_e2e316219f284ecb902b956f5234b391.setIcon(icon_22522a1499bb40e48c57dc279ab41960);
+        
+    
+        var popup_5ebacdd3ac104ae1a9a03ee0ef57da04 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_5385d13e6a02491cb301043b699677a8 = $(`<div id="html_5385d13e6a02491cb301043b699677a8" style="width: 100.0%; height: 100.0%;">France</div>`)[0];
+            popup_5ebacdd3ac104ae1a9a03ee0ef57da04.setContent(html_5385d13e6a02491cb301043b699677a8);
+        
+
+        marker_e2e316219f284ecb902b956f5234b391.bindPopup(popup_5ebacdd3ac104ae1a9a03ee0ef57da04)
+        ;
+
+        
+    
+    
+            var marker_c61a9c06cfd542eb89a3f512f209a6cd = L.marker(
+                [52.1326, 5.2913],
+                {}
+            ).addTo(map_162bae6db75a4395908fd08a6189225f);
+        
+    
+            var icon_7715892e70c14b04830058f162cdaeb9 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "glyphicon-map-marker", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_c61a9c06cfd542eb89a3f512f209a6cd.setIcon(icon_7715892e70c14b04830058f162cdaeb9);
+        
+    
+        var popup_8d0943e7be204496b211817bfed13155 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_31fe42da2bcc41519be4808d91627ba1 = $(`<div id="html_31fe42da2bcc41519be4808d91627ba1" style="width: 100.0%; height: 100.0%;">Netherlands</div>`)[0];
+            popup_8d0943e7be204496b211817bfed13155.setContent(html_31fe42da2bcc41519be4808d91627ba1);
+        
+
+        marker_c61a9c06cfd542eb89a3f512f209a6cd.bindPopup(popup_8d0943e7be204496b211817bfed13155)
+        ;
+
+        
+    
+    
+            var marker_e2761332e15b47bfbeacd55b9e462cb5 = L.marker(
+                [39.0742, 21.8243],
+                {}
+            ).addTo(map_162bae6db75a4395908fd08a6189225f);
+        
+    
+            var icon_88012b462399443e9c59129bb06a9b3e = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "glyphicon-map-marker", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_e2761332e15b47bfbeacd55b9e462cb5.setIcon(icon_88012b462399443e9c59129bb06a9b3e);
+        
+    
+        var popup_7ec8079169ad430b8d6a649f9af4abb9 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_d229f6a50ac6474088b56baab462462a = $(`<div id="html_d229f6a50ac6474088b56baab462462a" style="width: 100.0%; height: 100.0%;">Greece</div>`)[0];
+            popup_7ec8079169ad430b8d6a649f9af4abb9.setContent(html_d229f6a50ac6474088b56baab462462a);
+        
+
+        marker_e2761332e15b47bfbeacd55b9e462cb5.bindPopup(popup_7ec8079169ad430b8d6a649f9af4abb9)
+        ;
+
+        
+    
+    
+            var marker_b54f8354d2e2460ea15b9a6864644dfe = L.marker(
+                [20.5937, 78.9629],
+                {}
+            ).addTo(map_162bae6db75a4395908fd08a6189225f);
+        
+    
+            var icon_f8c125a91359481a998fb666e54174ea = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "glyphicon-map-marker", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_b54f8354d2e2460ea15b9a6864644dfe.setIcon(icon_f8c125a91359481a998fb666e54174ea);
+        
+    
+        var popup_a585fb3b497945f9ace21545750fcbce = L.popup({"maxWidth": "100%"});
+
+        
+            var html_57822968d7334602bd01c0b95face23b = $(`<div id="html_57822968d7334602bd01c0b95face23b" style="width: 100.0%; height: 100.0%;">India</div>`)[0];
+            popup_a585fb3b497945f9ace21545750fcbce.setContent(html_57822968d7334602bd01c0b95face23b);
+        
+
+        marker_b54f8354d2e2460ea15b9a6864644dfe.bindPopup(popup_a585fb3b497945f9ace21545750fcbce)
+        ;
+
+        
+    
+    
+            var marker_c7c60d39af254f32b30dfd53b04e848b = L.marker(
+                [61.9241, 25.7482],
+                {}
+            ).addTo(map_162bae6db75a4395908fd08a6189225f);
+        
+    
+            var icon_ed9130c59dfc495dbd270d49c35c208d = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "glyphicon-map-marker", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_c7c60d39af254f32b30dfd53b04e848b.setIcon(icon_ed9130c59dfc495dbd270d49c35c208d);
+        
+    
+        var popup_8bfe8d23cf1d44c99836d117bcecec91 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_0046955f49014d818883f4dd7294cf89 = $(`<div id="html_0046955f49014d818883f4dd7294cf89" style="width: 100.0%; height: 100.0%;">Finland</div>`)[0];
+            popup_8bfe8d23cf1d44c99836d117bcecec91.setContent(html_0046955f49014d818883f4dd7294cf89);
+        
+
+        marker_c7c60d39af254f32b30dfd53b04e848b.bindPopup(popup_8bfe8d23cf1d44c99836d117bcecec91)
+        ;
+
+        
+    
+    
+            var marker_8a08e1669be54dd2bb3e9ce0f2b14f90 = L.marker(
+                [-14.235, -51.9253],
+                {}
+            ).addTo(map_162bae6db75a4395908fd08a6189225f);
+        
+    
+            var icon_24651109e3074398a812867a50d339b8 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "glyphicon-map-marker", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_8a08e1669be54dd2bb3e9ce0f2b14f90.setIcon(icon_24651109e3074398a812867a50d339b8);
+        
+    
+        var popup_9e2d647eb32e47eebe7e785455e51ef6 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_cee6568cfdce44668ffd87bd4b881476 = $(`<div id="html_cee6568cfdce44668ffd87bd4b881476" style="width: 100.0%; height: 100.0%;">Brazil</div>`)[0];
+            popup_9e2d647eb32e47eebe7e785455e51ef6.setContent(html_cee6568cfdce44668ffd87bd4b881476);
+        
+
+        marker_8a08e1669be54dd2bb3e9ce0f2b14f90.bindPopup(popup_9e2d647eb32e47eebe7e785455e51ef6)
+        ;
+
+        
+    
+    
+            var marker_410b2496f4584fae869e3be5f27f0737 = L.marker(
+                [-9.19, -75.0152],
+                {}
+            ).addTo(map_162bae6db75a4395908fd08a6189225f);
+        
+    
+            var icon_a4224d1b54a14c1a9f7e5bcfe5e16e55 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "glyphicon-map-marker", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_410b2496f4584fae869e3be5f27f0737.setIcon(icon_a4224d1b54a14c1a9f7e5bcfe5e16e55);
+        
+    
+        var popup_a976871b9f9a4d1a9ca01529d49caa43 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_c55f6a83a5894940a09cb8f35bd10f55 = $(`<div id="html_c55f6a83a5894940a09cb8f35bd10f55" style="width: 100.0%; height: 100.0%;">Peru</div>`)[0];
+            popup_a976871b9f9a4d1a9ca01529d49caa43.setContent(html_c55f6a83a5894940a09cb8f35bd10f55);
+        
+
+        marker_410b2496f4584fae869e3be5f27f0737.bindPopup(popup_a976871b9f9a4d1a9ca01529d49caa43)
+        ;
+
+        
+    
+    
+            var marker_194366d0cc1e4b6b906c9ea44fddbbc0 = L.marker(
+                [31.0461, 34.8516],
+                {}
+            ).addTo(map_162bae6db75a4395908fd08a6189225f);
+        
+    
+            var icon_4e0c1db8a3a443a98268a1dd5803ea9b = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "glyphicon-map-marker", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_194366d0cc1e4b6b906c9ea44fddbbc0.setIcon(icon_4e0c1db8a3a443a98268a1dd5803ea9b);
+        
+    
+        var popup_95db82df97dd463bb15cc491655b845f = L.popup({"maxWidth": "100%"});
+
+        
+            var html_fbd4d089437749f1b924258fe2ec6556 = $(`<div id="html_fbd4d089437749f1b924258fe2ec6556" style="width: 100.0%; height: 100.0%;">Israel</div>`)[0];
+            popup_95db82df97dd463bb15cc491655b845f.setContent(html_fbd4d089437749f1b924258fe2ec6556);
+        
+
+        marker_194366d0cc1e4b6b906c9ea44fddbbc0.bindPopup(popup_95db82df97dd463bb15cc491655b845f)
+        ;
+
+        
+    
+    
+            var marker_7a6ddd00289548bcaff1886e05c5843d = L.marker(
+                [-30.5595, 22.9375],
+                {}
+            ).addTo(map_162bae6db75a4395908fd08a6189225f);
+        
+    
+            var icon_6c1f94beb3624b309d77b7a0f5d70168 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "glyphicon-star", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_7a6ddd00289548bcaff1886e05c5843d.setIcon(icon_6c1f94beb3624b309d77b7a0f5d70168);
+        
+    
+        var popup_ec8f4765463c4d30b542019638559c6b = L.popup({"maxWidth": "100%"});
+
+        
+            var html_d1de8489608a40e9a0ce6def3fd4986f = $(`<div id="html_d1de8489608a40e9a0ce6def3fd4986f" style="width: 100.0%; height: 100.0%;">South</div>`)[0];
+            popup_ec8f4765463c4d30b542019638559c6b.setContent(html_d1de8489608a40e9a0ce6def3fd4986f);
+        
+
+        marker_7a6ddd00289548bcaff1886e05c5843d.bindPopup(popup_ec8f4765463c4d30b542019638559c6b)
+        ;
+
+        
+    
+    
+            var marker_173e1e967c09432891981ebe66951819 = L.marker(
+                [38.9637, 35.2433],
+                {}
+            ).addTo(map_162bae6db75a4395908fd08a6189225f);
+        
+    
+            var icon_376bb205c4d446c7a0a1a235ecca9d05 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "glyphicon-map-marker", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_173e1e967c09432891981ebe66951819.setIcon(icon_376bb205c4d446c7a0a1a235ecca9d05);
+        
+    
+        var popup_f813fc40b75741e880143d3ef5a3bad2 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_629ca3214be04eb5a0241e088916a053 = $(`<div id="html_629ca3214be04eb5a0241e088916a053" style="width: 100.0%; height: 100.0%;">Turkey</div>`)[0];
+            popup_f813fc40b75741e880143d3ef5a3bad2.setContent(html_629ca3214be04eb5a0241e088916a053);
+        
+
+        marker_173e1e967c09432891981ebe66951819.bindPopup(popup_f813fc40b75741e880143d3ef5a3bad2)
+        ;
+
+        
+    
+    
+            var marker_0b75239d47dd4f6f9950e8d8c7c538cd = L.marker(
+                [30.3753, 69.3451],
+                {}
+            ).addTo(map_162bae6db75a4395908fd08a6189225f);
+        
+    
+            var icon_cef26471f02c4be5b9a254f2cd40886f = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "glyphicon-map-marker", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_0b75239d47dd4f6f9950e8d8c7c538cd.setIcon(icon_cef26471f02c4be5b9a254f2cd40886f);
+        
+    
+        var popup_4c864328041a45279306941190f4ff34 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_02ced5e112144e848baf967bd41707e3 = $(`<div id="html_02ced5e112144e848baf967bd41707e3" style="width: 100.0%; height: 100.0%;">Pakistan</div>`)[0];
+            popup_4c864328041a45279306941190f4ff34.setContent(html_02ced5e112144e848baf967bd41707e3);
+        
+
+        marker_0b75239d47dd4f6f9950e8d8c7c538cd.bindPopup(popup_4c864328041a45279306941190f4ff34)
+        ;
+
+        
+    
+    
+            var marker_82322b88d83c4dd49e688cfc7122ebf3 = L.marker(
+                [36.862499, 10.195556],
+                {}
+            ).addTo(map_162bae6db75a4395908fd08a6189225f);
+        
+    
+            var icon_3ca18ecf566f40299b27dcfa949c4449 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "glyphicon-star", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_82322b88d83c4dd49e688cfc7122ebf3.setIcon(icon_3ca18ecf566f40299b27dcfa949c4449);
+        
+    
+        var popup_6eab4d1bb230477d969621b9d41205db = L.popup({"maxWidth": "100%"});
+
+        
+            var html_d5a03adae27649cc9d8dea2db95df6af = $(`<div id="html_d5a03adae27649cc9d8dea2db95df6af" style="width: 100.0%; height: 100.0%;">Tunisia</div>`)[0];
+            popup_6eab4d1bb230477d969621b9d41205db.setContent(html_d5a03adae27649cc9d8dea2db95df6af);
+        
+
+        marker_82322b88d83c4dd49e688cfc7122ebf3.bindPopup(popup_6eab4d1bb230477d969621b9d41205db)
+        ;
+
+        
+    
+    
+            var marker_9d800a09232e45db834492c9fde1c5c9 = L.marker(
+                [41.8719, 12.5674],
+                {}
+            ).addTo(map_162bae6db75a4395908fd08a6189225f);
+        
+    
+            var icon_35fcd4d2b5774dc1903fb9bfaa08ee1e = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "glyphicon-map-marker", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_9d800a09232e45db834492c9fde1c5c9.setIcon(icon_35fcd4d2b5774dc1903fb9bfaa08ee1e);
+        
+    
+        var popup_b635fed6aa774c9ab962c16989bc1592 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_48b2867671c24117860f314bd117e0a1 = $(`<div id="html_48b2867671c24117860f314bd117e0a1" style="width: 100.0%; height: 100.0%;">Italy</div>`)[0];
+            popup_b635fed6aa774c9ab962c16989bc1592.setContent(html_48b2867671c24117860f314bd117e0a1);
+        
+
+        marker_9d800a09232e45db834492c9fde1c5c9.bindPopup(popup_b635fed6aa774c9ab962c16989bc1592)
+        ;
+
+        
+    
+    
+            var marker_dea25aa493f84c3aa1c58c3448297665 = L.marker(
+                [50.5039, 4.4699],
+                {}
+            ).addTo(map_162bae6db75a4395908fd08a6189225f);
+        
+    
+            var icon_1a9858f68df6472f8ccd378b96534324 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "glyphicon-map-marker", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_dea25aa493f84c3aa1c58c3448297665.setIcon(icon_1a9858f68df6472f8ccd378b96534324);
+        
+    
+        var popup_bc94f2cda91641279f881657183c05a7 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_ba2bf6102e7d4f1781cfc6da748b3881 = $(`<div id="html_ba2bf6102e7d4f1781cfc6da748b3881" style="width: 100.0%; height: 100.0%;">Belgium</div>`)[0];
+            popup_bc94f2cda91641279f881657183c05a7.setContent(html_ba2bf6102e7d4f1781cfc6da748b3881);
+        
+
+        marker_dea25aa493f84c3aa1c58c3448297665.bindPopup(popup_bc94f2cda91641279f881657183c05a7)
+        ;
+
+        
+    
+    
+            var marker_f00973c5fdf347c8b5eb62a5041cfb5e = L.marker(
+                [15.87, 100.9925],
+                {}
+            ).addTo(map_162bae6db75a4395908fd08a6189225f);
+        
+    
+            var icon_172f8453bcbb4370a650754489a51c41 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "glyphicon-map-marker", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_f00973c5fdf347c8b5eb62a5041cfb5e.setIcon(icon_172f8453bcbb4370a650754489a51c41);
+        
+    
+        var popup_b9e8eab8ece744c197068a28800db2c4 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_b1b3672041a3424e8c92392c6d88afe5 = $(`<div id="html_b1b3672041a3424e8c92392c6d88afe5" style="width: 100.0%; height: 100.0%;">Thailand</div>`)[0];
+            popup_b9e8eab8ece744c197068a28800db2c4.setContent(html_b1b3672041a3424e8c92392c6d88afe5);
+        
+
+        marker_f00973c5fdf347c8b5eb62a5041cfb5e.bindPopup(popup_b9e8eab8ece744c197068a28800db2c4)
+        ;
+
+        
+    
+    
+            var marker_7c392487121c434e814260cc001187da = L.marker(
+                [32.4279, 53.688],
+                {}
+            ).addTo(map_162bae6db75a4395908fd08a6189225f);
+        
+    
+            var icon_f3feef3600064b1a874ef0259bbf485f = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "glyphicon-map-marker", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_7c392487121c434e814260cc001187da.setIcon(icon_f3feef3600064b1a874ef0259bbf485f);
+        
+    
+        var popup_62d29b21e6a6456aa1d0d26971f13c38 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_e43fcad133d8402da2148eb2242dc803 = $(`<div id="html_e43fcad133d8402da2148eb2242dc803" style="width: 100.0%; height: 100.0%;">Iran</div>`)[0];
+            popup_62d29b21e6a6456aa1d0d26971f13c38.setContent(html_e43fcad133d8402da2148eb2242dc803);
+        
+
+        marker_7c392487121c434e814260cc001187da.bindPopup(popup_62d29b21e6a6456aa1d0d26971f13c38)
+        ;
+
+        
+    
+    
+            var marker_55b510902ca04fd794b3a4228310c21b = L.marker(
+                [44.0165, 21.0059],
+                {}
+            ).addTo(map_162bae6db75a4395908fd08a6189225f);
+        
+    
+            var icon_b482684c511648debf3027de80edcb42 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "glyphicon-map-marker", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_55b510902ca04fd794b3a4228310c21b.setIcon(icon_b482684c511648debf3027de80edcb42);
+        
+    
+        var popup_8e4c959f806d4d44bfbd7cb57cea72cf = L.popup({"maxWidth": "100%"});
+
+        
+            var html_13bbf3748afb4d4b8e33bddd5e1277c9 = $(`<div id="html_13bbf3748afb4d4b8e33bddd5e1277c9" style="width: 100.0%; height: 100.0%;">Serbia</div>`)[0];
+            popup_8e4c959f806d4d44bfbd7cb57cea72cf.setContent(html_13bbf3748afb4d4b8e33bddd5e1277c9);
+        
+
+        marker_55b510902ca04fd794b3a4228310c21b.bindPopup(popup_8e4c959f806d4d44bfbd7cb57cea72cf)
+        ;
+
+        
+    
+    
+            var marker_c26b9494c1f3447d9b44bf91e88d790e = L.marker(
+                [14.0583, 108.2772],
+                {}
+            ).addTo(map_162bae6db75a4395908fd08a6189225f);
+        
+    
+            var icon_cc67b8efaa8b4901ab222bf779f61f9d = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "glyphicon-map-marker", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_c26b9494c1f3447d9b44bf91e88d790e.setIcon(icon_cc67b8efaa8b4901ab222bf779f61f9d);
+        
+    
+        var popup_18b3c52f6ae048bfa857d8988d9e9862 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_4690876b70e34c5295e00068fb3e3c6a = $(`<div id="html_4690876b70e34c5295e00068fb3e3c6a" style="width: 100.0%; height: 100.0%;">Viet</div>`)[0];
+            popup_18b3c52f6ae048bfa857d8988d9e9862.setContent(html_4690876b70e34c5295e00068fb3e3c6a);
+        
+
+        marker_c26b9494c1f3447d9b44bf91e88d790e.bindPopup(popup_18b3c52f6ae048bfa857d8988d9e9862)
+        ;
+
+        
+    
+    
+            var marker_790b3a3331554749982d2bdc8773401d = L.marker(
+                [33.2232, 43.6793],
+                {}
+            ).addTo(map_162bae6db75a4395908fd08a6189225f);
+        
+    
+            var icon_44bbad7b79db442193bebc193be48e46 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "glyphicon-map-marker", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_790b3a3331554749982d2bdc8773401d.setIcon(icon_44bbad7b79db442193bebc193be48e46);
+        
+    
+        var popup_21a044cd58be4657a25233581336a191 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_96e9ed55be874767ba0f2b1b27ca3eea = $(`<div id="html_96e9ed55be874767ba0f2b1b27ca3eea" style="width: 100.0%; height: 100.0%;">Iraq</div>`)[0];
+            popup_21a044cd58be4657a25233581336a191.setContent(html_96e9ed55be874767ba0f2b1b27ca3eea);
+        
+
+        marker_790b3a3331554749982d2bdc8773401d.bindPopup(popup_21a044cd58be4657a25233581336a191)
+        ;
+
+        
+    
+    
+            var marker_91514ad0e6d64fe8a793a98fafc39522 = L.marker(
+                [9.082, 8.6753],
+                {}
+            ).addTo(map_162bae6db75a4395908fd08a6189225f);
+        
+    
+            var icon_276d3ca847304936b44c102a3b672d94 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "glyphicon-map-marker", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_91514ad0e6d64fe8a793a98fafc39522.setIcon(icon_276d3ca847304936b44c102a3b672d94);
+        
+    
+        var popup_28fc3af7af55475981f2f87f9d17cbe0 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_3d5930063246437d9719708abd170538 = $(`<div id="html_3d5930063246437d9719708abd170538" style="width: 100.0%; height: 100.0%;">Nigeria</div>`)[0];
+            popup_28fc3af7af55475981f2f87f9d17cbe0.setContent(html_3d5930063246437d9719708abd170538);
+        
+
+        marker_91514ad0e6d64fe8a793a98fafc39522.bindPopup(popup_28fc3af7af55475981f2f87f9d17cbe0)
+        ;
+
+        
+    
+    
+            var marker_133fb0f876e0441face2da26cc8c8b3d = L.marker(
+                [-25.2744, 133.7751],
+                {}
+            ).addTo(map_162bae6db75a4395908fd08a6189225f);
+        
+    
+            var icon_20af1d3f3ce64b8d9b669c1886573704 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "glyphicon-map-marker", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_133fb0f876e0441face2da26cc8c8b3d.setIcon(icon_20af1d3f3ce64b8d9b669c1886573704);
+        
+    
+        var popup_61e673b7f9af4efaa3378c66b33b0b43 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_8afd00361da246b89359bb87a2dc18cd = $(`<div id="html_8afd00361da246b89359bb87a2dc18cd" style="width: 100.0%; height: 100.0%;">Australia</div>`)[0];
+            popup_61e673b7f9af4efaa3378c66b33b0b43.setContent(html_8afd00361da246b89359bb87a2dc18cd);
+        
+
+        marker_133fb0f876e0441face2da26cc8c8b3d.bindPopup(popup_61e673b7f9af4efaa3378c66b33b0b43)
+        ;
+
+        
+    
+    
+            var marker_c124e2cfbb5646738170f676d5699c24 = L.marker(
+                [12.8797, 121.774],
+                {}
+            ).addTo(map_162bae6db75a4395908fd08a6189225f);
+        
+    
+            var icon_afd7ff6dac0245bbb6da3259a9171c6f = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "glyphicon-map-marker", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_c124e2cfbb5646738170f676d5699c24.setIcon(icon_afd7ff6dac0245bbb6da3259a9171c6f);
+        
+    
+        var popup_64a4640e90ba4fac99aea9d4581b3fa6 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_8168ce68a81f4bbd8347a7d31737a747 = $(`<div id="html_8168ce68a81f4bbd8347a7d31737a747" style="width: 100.0%; height: 100.0%;">Philippines</div>`)[0];
+            popup_64a4640e90ba4fac99aea9d4581b3fa6.setContent(html_8168ce68a81f4bbd8347a7d31737a747);
+        
+
+        marker_c124e2cfbb5646738170f676d5699c24.bindPopup(popup_64a4640e90ba4fac99aea9d4581b3fa6)
+        ;
+
+        
+    
+    
+            var marker_11ade7a6ee0b42d9bcc9d907a95c867a = L.marker(
+                [49.8037633, 15.4749126],
+                {}
+            ).addTo(map_162bae6db75a4395908fd08a6189225f);
+        
+    
+            var icon_1be41a0f7afa49759b212d62f7ebe3bd = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "glyphicon-map-marker", "iconColor": "white", "markerColor": "green", "prefix": "glyphicon"}
+            );
+            marker_11ade7a6ee0b42d9bcc9d907a95c867a.setIcon(icon_1be41a0f7afa49759b212d62f7ebe3bd);
+        
+    
+        var popup_952d0fe0a95a4baca3f6401230de2501 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_f4ac643528854fa2a1c2682134b032f1 = $(`<div id="html_f4ac643528854fa2a1c2682134b032f1" style="width: 100.0%; height: 100.0%;">Czech</div>`)[0];
+            popup_952d0fe0a95a4baca3f6401230de2501.setContent(html_f4ac643528854fa2a1c2682134b032f1);
+        
+
+        marker_11ade7a6ee0b42d9bcc9d907a95c867a.bindPopup(popup_952d0fe0a95a4baca3f6401230de2501)
+        ;
+
+        
+    
+    
+            var marker_80cd724bce3a4afdb1464bcec83c20e2 = L.marker(
+                [4.5709, -74.2973],
+                {}
+            ).addTo(map_162bae6db75a4395908fd08a6189225f);
+        
+    
+            var icon_4d6e8d19b8ac48e183a0d75d072ae764 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "glyphicon-map-marker", "iconColor": "white", "markerColor": "green", "prefix": "glyphicon"}
+            );
+            marker_80cd724bce3a4afdb1464bcec83c20e2.setIcon(icon_4d6e8d19b8ac48e183a0d75d072ae764);
+        
+    
+        var popup_d4e851256edd41e7879e0befa0914818 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_0de3a3ca046a438d93a3c62ea17b7dee = $(`<div id="html_0de3a3ca046a438d93a3c62ea17b7dee" style="width: 100.0%; height: 100.0%;">Colombia</div>`)[0];
+            popup_d4e851256edd41e7879e0befa0914818.setContent(html_0de3a3ca046a438d93a3c62ea17b7dee);
+        
+
+        marker_80cd724bce3a4afdb1464bcec83c20e2.bindPopup(popup_d4e851256edd41e7879e0befa0914818)
+        ;
+
+        
+    
+    
+            var marker_b2f55e3a283a4f9f80e9725fb1a0f5b6 = L.marker(
+                [40.4637, -3.7492],
+                {}
+            ).addTo(map_162bae6db75a4395908fd08a6189225f);
+        
+    
+            var icon_2ce4ada21f754dd7aa94ac579d892b91 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "glyphicon-map-marker", "iconColor": "white", "markerColor": "green", "prefix": "glyphicon"}
+            );
+            marker_b2f55e3a283a4f9f80e9725fb1a0f5b6.setIcon(icon_2ce4ada21f754dd7aa94ac579d892b91);
+        
+    
+        var popup_2ab0ddf00e51446daffd0a19f5c47566 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_d99934f151354312abd759c00232cbae = $(`<div id="html_d99934f151354312abd759c00232cbae" style="width: 100.0%; height: 100.0%;">Spain</div>`)[0];
+            popup_2ab0ddf00e51446daffd0a19f5c47566.setContent(html_d99934f151354312abd759c00232cbae);
+        
+
+        marker_b2f55e3a283a4f9f80e9725fb1a0f5b6.bindPopup(popup_2ab0ddf00e51446daffd0a19f5c47566)
+        ;
+
+        
+    
+    
+            var marker_549a8ef2f50742a38b21612801162e74 = L.marker(
+                [28.3949, 84.124],
+                {}
+            ).addTo(map_162bae6db75a4395908fd08a6189225f);
+        
+    
+            var icon_8078f524605d456caa3eee658d8d8597 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "glyphicon-map-marker", "iconColor": "white", "markerColor": "green", "prefix": "glyphicon"}
+            );
+            marker_549a8ef2f50742a38b21612801162e74.setIcon(icon_8078f524605d456caa3eee658d8d8597);
+        
+    
+        var popup_789d658f612c44a38d5c2d420a2c0863 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_a16d27a7a426427fb7e1aac1e8195142 = $(`<div id="html_a16d27a7a426427fb7e1aac1e8195142" style="width: 100.0%; height: 100.0%;">Nepal</div>`)[0];
+            popup_789d658f612c44a38d5c2d420a2c0863.setContent(html_a16d27a7a426427fb7e1aac1e8195142);
+        
+
+        marker_549a8ef2f50742a38b21612801162e74.bindPopup(popup_789d658f612c44a38d5c2d420a2c0863)
+        ;
+
+        
+    
+    
+            var marker_562f840698ba4fa78349d6f36d26d7fb = L.marker(
+                [51.1657, 10.4515],
+                {}
+            ).addTo(map_162bae6db75a4395908fd08a6189225f);
+        
+    
+            var icon_5d051befb7ec484897f4a66d9fc71d4b = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "glyphicon-star", "iconColor": "white", "markerColor": "green", "prefix": "glyphicon"}
+            );
+            marker_562f840698ba4fa78349d6f36d26d7fb.setIcon(icon_5d051befb7ec484897f4a66d9fc71d4b);
+        
+    
+        var popup_7bf60f24538b4a049281306bd3c9a917 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_19eaf81ad87c4c5c9b675dac489d1cb8 = $(`<div id="html_19eaf81ad87c4c5c9b675dac489d1cb8" style="width: 100.0%; height: 100.0%;">Germany</div>`)[0];
+            popup_7bf60f24538b4a049281306bd3c9a917.setContent(html_19eaf81ad87c4c5c9b675dac489d1cb8);
+        
+
+        marker_562f840698ba4fa78349d6f36d26d7fb.bindPopup(popup_7bf60f24538b4a049281306bd3c9a917)
+        ;
+
+        
+    
+    
+            var marker_a9c0f57372104e1b859ebcd5c1c20f28 = L.marker(
+                [35.8617, 104.1954],
+                {}
+            ).addTo(map_162bae6db75a4395908fd08a6189225f);
+        
+    
+            var icon_124d4c7f0c5a4620bf78e4fd98e05863 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "glyphicon-map-marker", "iconColor": "white", "markerColor": "green", "prefix": "glyphicon"}
+            );
+            marker_a9c0f57372104e1b859ebcd5c1c20f28.setIcon(icon_124d4c7f0c5a4620bf78e4fd98e05863);
+        
+    
+        var popup_414001309c5a4f03a31a558c40a1464e = L.popup({"maxWidth": "100%"});
+
+        
+            var html_3175702f30a64f81b62abd039d8e00e6 = $(`<div id="html_3175702f30a64f81b62abd039d8e00e6" style="width: 100.0%; height: 100.0%;">China</div>`)[0];
+            popup_414001309c5a4f03a31a558c40a1464e.setContent(html_3175702f30a64f81b62abd039d8e00e6);
+        
+
+        marker_a9c0f57372104e1b859ebcd5c1c20f28.bindPopup(popup_414001309c5a4f03a31a558c40a1464e)
+        ;
+
+        
+    
+    
+            var marker_e581631e99b945ee8925cfb9eb374b03 = L.marker(
+                [3.2213295913303335, 101.6771546875],
+                {}
+            ).addTo(map_162bae6db75a4395908fd08a6189225f);
+        
+    
+            var icon_5aca2a9e49274336adbde8367d9b4ad7 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "glyphicon-star", "iconColor": "white", "markerColor": "purple", "prefix": "glyphicon"}
+            );
+            marker_e581631e99b945ee8925cfb9eb374b03.setIcon(icon_5aca2a9e49274336adbde8367d9b4ad7);
+        
+    
+        var popup_4930c9e1788f4dbebc8f2018f5137cdf = L.popup({"maxWidth": "100%"});
+
+        
+            var html_1219b107ab7b4be3bd174ab856d50df2 = $(`<div id="html_1219b107ab7b4be3bd174ab856d50df2" style="width: 100.0%; height: 100.0%;">Malaysia</div>`)[0];
+            popup_4930c9e1788f4dbebc8f2018f5137cdf.setContent(html_1219b107ab7b4be3bd174ab856d50df2);
+        
+
+        marker_e581631e99b945ee8925cfb9eb374b03.bindPopup(popup_4930c9e1788f4dbebc8f2018f5137cdf)
+        ;
+
+        
+    
+</script>
