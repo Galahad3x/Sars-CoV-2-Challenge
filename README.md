@@ -15,6 +15,8 @@ Pràctica d'Algorítmica i Complexitat
 - saved_distances.csv -> Tot i que 10 segons és prou ràpid, amb el número de comparacions que necessitem s'allarga molt el temps d'execució. En aquest fitxer guardem les calculacions ja fetes per no haver-les de repetir.
 - map.html -> Resultat de k-medoids, representat gràficament.
 - time.txt -> Temps que hem tardat en descarregar les mostres.
+- Carpeta Algoritmes_Acabats -> Tal com el seu nom indica, aquí hi han tots els algoritmes que hem programat i provat.
+- Carpeta fitxers_vells -> Fitxers deprecats ja no necessaris, però que ens poden ser útils en algun moment. Aquests fitxers compilen amb errors i malament, no formen part de l'entrega.
 ### Preprocessament:
 #### Càlcul de medianes:
 - Hem descarregat la informació en csv de totes les seqüències, ordenades per llargada ("all_sequences.csv").
