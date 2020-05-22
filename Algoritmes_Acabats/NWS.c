@@ -13,11 +13,17 @@ int main(int argc, char *argv[]) {
     int getsres;
 	FILE *file1 = fopen(argv[1], "r");
 	char sequence1[30000];
-    fgets(sequence1, 30000, file1);
+    if(fgets(sequence1, 30000, file1) == NULL){
+        printf("ERROR while reading");
+        return -1;
+    }
 	sequence1[strlen(sequence1) - 1] = '\0';
 	FILE *file2 = fopen(argv[2], "r");
 	char sequence2[30000];
-    fgets(sequence2, 30000, file2);
+    if(fgets(sequence2, 30000, file2) == NULL){
+        printf("ERROR while reading");
+        return -1;
+    }
 	sequence2[strlen(sequence2) - 1] = '\0';
 	sequenceAlignmentSimple(sequence1, sequence2, 0);
 }
