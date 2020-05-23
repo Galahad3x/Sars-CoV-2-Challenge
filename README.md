@@ -10,13 +10,13 @@ Pràctica d'Algorítmica i Complexitat
 - fasta_fixer.py -> Ens servirà per a substituïr nucleòtids que s'utilitzen com a abreviació. S'executa dins de fasta_finder.
 - all_sequences.csv -> Dades sobre totes les seqüències en format CSV
 - failsafe.py -> Executat amb python2.6 ens serveix com a guàrdia al provar els algoritmes. Si un algoritme està a punt de fer que l'ordenador es pengi, l'atura.
-- Analisi-Algoritmes.ods -> **DEPRECIAT** Full de càlcul amb l'anàlisi dels algoritmes. Està deprecat ja que un cop finalitzat l'anàlisi es va poder millorar dràsticament la velocitat del millor algoritme (~13 minuts a ~10 segons).
-- NWS_C -> És la millor versió de l'algoritme final, separat de la resta d'algoritmes per comoditat.
+- Analisi-Algoritmes.ods -> **DESPRECIAT** Full de càlcul amb l'anàlisi dels algoritmes. Està despreciat ja que un cop finalitzat l'anàlisi es va poder millorar dràsticament la velocitat del millor algorisme (~13 minuts a ~10 segons).
+- NWS_C -> És la millor versió de l'algorisme final, separat de la resta d'algorismes per comoditat.
 - saved_distances.csv -> Tot i que 10 segons és prou ràpid, amb el número de comparacions que necessitem s'allarga molt el temps d'execució. En aquest fitxer guardem les calculacions ja fetes per no haver-les de repetir.
 - map.html -> Resultat de k-medoids, representat gràficament.
 - time.txt -> Temps que hem tardat en descarregar les mostres.
-- Carpeta Algoritmes_Acabats -> Tal com el seu nom indica, aquí hi han tots els algoritmes que hem programat i provat.
-- Carpeta fitxers_vells -> Fitxers deprecats ja no necessaris, però que ens poden ser útils en algun moment. Aquests fitxers compilen amb errors i malament, no formen part de l'entrega.
+- Carpeta Algoritmes_Acabats -> Tal com el seu nom indica, aquí hi han tots els algorismes que hem programat i provat.
+- Carpeta fitxers_vells -> Fitxers despreciats ja no són necessaris, però que ens poden ser útils en algun moment. Aquests fitxers compilen amb errors i malament, no formen part de l'entrega.
 ### Preprocessament:
 #### Càlcul de medianes:
 - Hem descarregat la informació en csv de totes les seqüències, ordenades per llargada ("all_sequences.csv").
