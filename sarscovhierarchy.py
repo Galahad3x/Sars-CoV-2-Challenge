@@ -404,6 +404,7 @@ def generate_map(clusters):
                 ).add_to(m)
     filepath = 'map.html'
     m.save(filepath)
+    print("Mapa dels clusters generat a map.html")
 
 def k_medoids(route,k):
     clusters = []
@@ -424,8 +425,6 @@ def k_medoids(route,k):
     print("Definitive clusters: ")
     for cluster in clusters:
         print(cluster.center.name,[mem.name for mem in cluster.members])
-        print(cluster.center.distances)
-        print("\n")
     generate_map(clusters)
     return 0
 
