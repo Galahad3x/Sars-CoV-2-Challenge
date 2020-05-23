@@ -1,4 +1,7 @@
 # Sars-CoV-2-Challenge
+
+## Link del repositori de GitHub: https://github.com/Galahad3x/Sars-CoV-2-Challenge
+
 #### IMPORTANT:
 - Degut al nivell de programació dels membres del grup i el temps en el que s'han dut a terme les tasques, ens hem vist obligats a utilitzar solucions "poc ortodoxes" en certs parts de la pràctica. Aquestes solucions depenents del sistema fan que la pràctica funcioni correctament en un sistema Ubuntu 18.04, però no ho podem assegurar en altres SO.
 ### Fitxers per a l'execució:
@@ -39,7 +42,6 @@
 ```
 
 <div style="page-break-after: always;"></div>
-
 ### Preprocessament:
 #### Càlcul de medianes:
 - Hem descarregat la informació en csv de totes les seqüències, ordenades per llargada ("all_sequences.csv").
