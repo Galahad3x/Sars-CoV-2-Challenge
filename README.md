@@ -1,7 +1,7 @@
 # Sars-CoV-2-Challenge
 Pràctica d'Algorítmica i Complexitat  
 #### IMPORTANT:
-- Degut al nivell de programació dels membres del grup i el temps en el que s'han dut a terme les tasques, ens hem vist obligats a utilitzar solucions "poc ortodoxes" en certs parts de la pràctica. Aquestes solucions depenents del sistema fan que la pràctica funcioni correctament en un sistema Ubuntu 18.04, però no ho podem assegurar en altres SO.
+- Degut al nivell de programació dels membres del grup i el temps en el que s'han dut a terme les tasques, ens hem vist obligats a utilitzar solucions "poc ortodoxes" en certes parts de la pràctica. Aquestes solucions depenents del sistema fan que la pràctica funcioni correctament en un sistema Ubuntu 18.04, però no ho podem assegurar en altres SO.
 ### Fitxers per a l'execució:
 - sarscovhierarcy.py <directory> -> Fitxer principal. De moment fa k-medoids clustering.
 - setup.py <ruta all_sequences.csv> -> Executat com a sudo, crida als altres fitxers necessaris per a la obtenció de mostres.
@@ -10,7 +10,7 @@ Pràctica d'Algorítmica i Complexitat
 - fasta_fixer.py -> Ens servirà per a substituïr nucleòtids que s'utilitzen com a abreviació. S'executa dins de fasta_finder.
 - all_sequences.csv -> Dades sobre totes les seqüències en format CSV
 - failsafe.py -> Executat amb python2.6 ens serveix com a guàrdia al provar els algoritmes. Si un algoritme està a punt de fer que l'ordenador es pengi, l'atura.
-- Analisi-Algoritmes.ods -> **DEPRECAT** Full de càlcul amb l'anàlisi dels algoritmes. Està deprecat ja que un cop finalitzat l'anàlisi es va poder millorar dràsticament la velocitat del millor algoritme (~13 minuts a ~10 segons).
+- Analisi-Algoritmes.ods -> **DEPRECIAT** Full de càlcul amb l'anàlisi dels algoritmes. Està deprecat ja que un cop finalitzat l'anàlisi es va poder millorar dràsticament la velocitat del millor algoritme (~13 minuts a ~10 segons).
 - NWS_C -> És la millor versió de l'algoritme final, separat de la resta d'algoritmes per comoditat.
 - saved_distances.csv -> Tot i que 10 segons és prou ràpid, amb el número de comparacions que necessitem s'allarga molt el temps d'execució. En aquest fitxer guardem les calculacions ja fetes per no haver-les de repetir.
 - map.html -> Resultat de k-medoids, representat gràficament.
