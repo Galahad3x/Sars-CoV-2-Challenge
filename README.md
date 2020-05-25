@@ -42,6 +42,7 @@
 ```
 
 <div style="page-break-after: always;"></div>
+
 ### Preprocessament:
 #### Càlcul de medianes:
 - Hem descarregat la informació en csv de totes les seqüències, ordenades per llargada ("all_sequences.csv").
@@ -62,6 +63,7 @@
 > **Aquest és el mètode que utilitzarem finalment, ja que és el més ràpid i eficient en memòria, com podem veure a l'anàlisi de costos (Analisi-Algoritmes.ods). Utilitzarem la versió en C, que tarda aproximadament 8 segons per comparació.**
 
 <div style="page-break-after: always;"></div>
+
 #### Mètode de classificació
 - Per a estalviar temps en les comparacions, creem un fitxer csv on guardem els resultats d'aquestes per a futura referència. El fitxer és saved_distances.csv.
 ##### Duració algoritmes de classificació
